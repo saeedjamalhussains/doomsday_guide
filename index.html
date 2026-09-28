@@ -29,7 +29,7 @@
 }
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; overflow-x: hidden; }
 body { margin: 0; background: var(--black); color: #f2f2f2; font-family: "Barlow", -apple-system, "Helvetica Neue", Arial, sans-serif; font-size: 17px; line-height: 1.55; overflow-x: hidden; }
 button { font: inherit; color: inherit; }
 :focus-visible { outline: 3px solid var(--cap); outline-offset: 3px; }
@@ -779,20 +779,37 @@ function runVO() {
 const finale = document.getElementById("finale");
 let finaleVisible = false;
 let finaleVibrated = false;
+let lastScrollY = window.scrollY;
+function playFinale() {
+  finaleVisible = true;
+  finaleVibrated = false;
+  finale.classList.remove("go");
+  void finale.offsetWidth;
+  finale.classList.add("go");
+  setTimeout(() => { impact(); vibrateFinale(); }, 250);
+}
 new IntersectionObserver(es => es.forEach(en => {
   if (en.isIntersecting && !finaleVisible) {
-    finaleVisible = true;
-    finaleVibrated = false;
-    finale.classList.remove("go");
-    void finale.offsetWidth;
-    finale.classList.add("go");
-    setTimeout(() => { impact(); vibrateFinale(); }, 250);
+    playFinale();
   } else if (!en.isIntersecting) {
     finaleVisible = false;
     finale.classList.remove("go");
     if (typeof navigator.vibrate === "function") navigator.vibrate(0);
   }
 }), { threshold: 0.45 }).observe(finale);
+window.addEventListener("scroll", () => {
+  const movingUp = window.scrollY < lastScrollY;
+  const nearFinale = finale.getBoundingClientRect().top < window.innerHeight * .55;
+  if (movingUp && finaleVisible) {
+    finaleVisible = false;
+    finaleVibrated = false;
+    finale.classList.remove("go");
+    if (typeof navigator.vibrate === "function") navigator.vibrate(0);
+  } else if (!movingUp && nearFinale && !finaleVisible) {
+    playFinale();
+  }
+  lastScrollY = window.scrollY;
+}, { passive: true });
 const vibrateOnFinaleGesture = () => { if (finaleVisible) vibrateFinale(); };
 window.addEventListener("pointerdown", vibrateOnFinaleGesture, { passive: true });
 window.addEventListener("pointerup", vibrateOnFinaleGesture, { passive: true });
