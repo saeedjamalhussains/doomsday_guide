@@ -702,6 +702,10 @@ function impact() {
     { transform: "translate(-6px,-4px)" }, { transform: "translate(5px,4px)" }, { transform: "translate(0,0)" }
   ], { duration: 420, easing: "linear" });
 }
+function vibrateFinale() {
+  if (reduce || !navigator.vibrate || !matchMedia("(pointer: coarse)").matches) return;
+  navigator.vibrate([70, 35, 110, 35, 170]);
+}
 function sfxAt(btn) {
   if (reduce) return;
   const p = btn.closest(".panel");
@@ -779,10 +783,11 @@ new IntersectionObserver(es => es.forEach(en => {
     finale.classList.remove("go");
     void finale.offsetWidth;
     finale.classList.add("go");
-    setTimeout(impact, 250);
+    setTimeout(() => { impact(); vibrateFinale(); }, 250);
   } else if (!en.isIntersecting) {
     finaleVisible = false;
     finale.classList.remove("go");
+    if (navigator.vibrate) navigator.vibrate(0);
   }
 }), { threshold: 0.45 }).observe(finale);
 
