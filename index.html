@@ -705,7 +705,7 @@ function impact() {
 function vibrateFinale() {
   if (reduce || finaleVibrated || typeof navigator.vibrate !== "function" || !matchMedia("(pointer: coarse)").matches) return;
   finaleVibrated = true;
-  navigator.vibrate([30, 55, 45, 55, 70, 50, 105, 40, 280]);
+  try { navigator.vibrate([30, 55, 45, 55, 70, 50, 105, 40, 280]); } catch (e) {}
 }
 function sfxAt(btn) {
   if (reduce) return;
@@ -794,7 +794,9 @@ new IntersectionObserver(es => es.forEach(en => {
   }
 }), { threshold: 0.45 }).observe(finale);
 const vibrateOnFinaleGesture = () => { if (finaleVisible) vibrateFinale(); };
+window.addEventListener("pointerdown", vibrateOnFinaleGesture, { passive: true });
 window.addEventListener("pointerup", vibrateOnFinaleGesture, { passive: true });
+window.addEventListener("touchstart", vibrateOnFinaleGesture, { passive: true });
 window.addEventListener("touchend", vibrateOnFinaleGesture, { passive: true });
 
 /* Title shake once it lands */
