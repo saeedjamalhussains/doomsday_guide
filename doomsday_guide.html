@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
 <title>Before Doomsday</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,7 +12,6 @@
 :root {
   --red: #ed1d24;
   --black: #000;
-  --ink: #111;
   --paper: #f7f4ee;
   --cap: #ffdd3c;
   --u1: #ed1d24;
@@ -39,7 +39,6 @@ button { font: inherit; color: inherit; }
 
 /* Hero */
 .hero { position: relative; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding: clamp(64px, 12vw, 88px) 0 clamp(56px, 10vw, 72px); overflow: hidden; }
-.halftone { display: none; }
 .hero .wrap { position: relative; }
 .tag { display: inline-block; background: var(--red); color: #fff; font: 700 15px/1 var(--cond); letter-spacing: .16em; text-transform: uppercase; padding: 8px 16px; transform: skewX(-10deg); margin-bottom: 28px; animation: tagin .5s ease .1s backwards; }
 @keyframes tagin { from { transform: skewX(-10deg) translateX(-40px); opacity: 0; } }
@@ -55,6 +54,10 @@ h1 .l2 { color: #fff; text-shadow: 6px 6px 0 var(--red); animation: slam .75s cu
 .cap { display: inline-block; max-width: 100%; background: var(--cap); color: #111; border: 3px solid #000; box-shadow: 5px 5px 0 var(--red); padding: 12px 16px; margin: 0; font: 600 17px/1.4 var(--cond); letter-spacing: .04em; text-transform: uppercase; transform: rotate(-1deg); }
 .hero .cap { animation: capin .6s cubic-bezier(.2,1.4,.4,1) 2s backwards; }
 @keyframes capin { from { opacity: 0; transform: rotate(-1deg) translateY(30px) scale(.9); } }
+.cd { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 30px; animation: fadein .8s ease 1.8s backwards; }
+.cd .u { min-width: 78px; background: #000; border: 3px solid #fff; box-shadow: 4px 4px 0 var(--red); padding: 8px 10px 6px; text-align: center; transform: skewX(-6deg); }
+.cd b { display: block; font: 400 clamp(34px, 8vw, 52px)/1 var(--display); letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+.cd small { display: block; font: 700 12px/1 var(--cond); letter-spacing: .16em; text-transform: uppercase; color: #bbb; margin-top: 3px; }
 
 /* Sticky bar */
 .bar { position: sticky; top: 0; z-index: 60; background: var(--red); color: #fff; padding-top: env(safe-area-inset-top, 0px); box-shadow: 0 4px 0 #000; }
@@ -70,6 +73,7 @@ h1 .l2 { color: #fff; text-shadow: 6px 6px 0 var(--red); animation: slam .75s cu
 /* Content */
 main { padding-bottom: 40px; }
 .tools { padding: 40px 0 0; }
+.spoil { display: inline-block; max-width: 100%; margin: 0 0 20px; background: var(--cap); color: #111; border: 3px solid #000; box-shadow: 4px 4px 0 var(--red); padding: 8px 14px; font: 700 15px/1.35 var(--cond); letter-spacing: .06em; text-transform: uppercase; transform: rotate(-1deg); }
 .note { margin: 0 0 22px; max-width: 34em; color: #ddd; }
 .tools .r { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; margin-bottom: 22px; }
 .next { background: #fff; color: #000; border: 3px solid #000; box-shadow: 4px 4px 0 var(--red); font: 700 15px/1 var(--cond); letter-spacing: .1em; text-transform: uppercase; padding: 10px 16px; cursor: pointer; transition: transform .15s, box-shadow .15s; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -111,6 +115,7 @@ main { padding-bottom: 40px; }
 .name { flex: 1; min-width: 0; }
 .name b { display: block; font: 400 clamp(26px, 4.4vw, 38px)/1.02 var(--display); letter-spacing: .02em; text-transform: uppercase; }
 .name small { display: block; font: 600 14px/1.2 var(--cond); letter-spacing: .12em; text-transform: uppercase; color: #666; margin-top: 4px; }
+.name .lvm { display: none; }
 .chev { flex: none; width: 14px; height: 14px; border-right: 3px solid #000; border-bottom: 3px solid #000; transform: rotate(45deg) translate(-2px, -2px); transition: transform .3s; margin: 0 6px 0 4px; }
 .panel.open .chev { transform: rotate(-135deg) translate(-2px, -2px); }
 .watch { flex: none; width: 66px; background: none; border: 0; border-left: 3px solid #000; cursor: pointer; display: grid; place-items: center; position: relative; }
@@ -216,9 +221,12 @@ footer p { margin: 0 0 8px; max-width: 44em; }
   .watch { width: 54px; }
   .issue { font-size: 22px; }
   .head { gap: 10px; padding: 14px 4px 14px 12px; }
-  .head .sticker { display: none; }
+  .head > .sticker { display: none; }
+  .name .lvm { display: inline-block; margin-top: 8px; }
   .xtras .cap:nth-child(2) { margin-left: 0; }
   .stamp { right: 56px; font-size: 20px; }
+  .cd { gap: 8px; }
+  .cd .u { min-width: 0; flex: 1 1 calc(25% - 8px); padding: 8px 4px 6px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
@@ -233,12 +241,17 @@ footer p { margin: 0 0 8px; max-width: 44em; }
 
 <div id="page">
   <header class="hero">
-    <div class="halftone" id="halftone"></div>
     <div class="wrap">
       <span class="tag">Avengers: Doomsday &nbsp;/&nbsp; December 18, 2026</span>
       <h1 id="title" aria-label="Before Doomsday"><span class="l1">Before</span><span class="l2">Doomsday</span></h1>
       <div class="vo" id="vo" aria-hidden="true"><span></span></div>
       <p class="lede">What to watch, why it matters, and what it leads into.</p>
+      <div class="cd" id="cd" role="timer" aria-label="Time until Avengers: Doomsday">
+        <div class="u"><b data-k="d">0</b><small>Days</small></div>
+        <div class="u"><b data-k="h">00</b><small>Hours</small></div>
+        <div class="u"><b data-k="m">00</b><small>Minutes</small></div>
+        <div class="u"><b data-k="s">00</b><small>Seconds</small></div>
+      </div>
       <p class="cap">September 28, 2026. The multiverse is holding its breath. You have until December 18 to catch up, True Believer.</p>
     </div>
   </header>
@@ -247,9 +260,9 @@ footer p { margin: 0 0 8px; max-width: 44em; }
     <div class="in">
       <span class="brand">Before Doomsday</span>
       <div class="seg" role="radiogroup" aria-label="View" id="seg">
-        <button role="radio" aria-checked="true" data-mode="core">Focused</button>
-        <button role="radio" aria-checked="false" data-mode="full">Complete</button>
-        <button role="radio" aria-checked="false" data-mode="map">Mind map</button>
+        <button role="radio" aria-checked="true" tabindex="0" data-mode="core">Focused</button>
+        <button role="radio" aria-checked="false" tabindex="-1" data-mode="full">Complete</button>
+        <button role="radio" aria-checked="false" tabindex="-1" data-mode="map">Mind map</button>
       </div>
       <span class="count" id="count" aria-live="polite"></span>
     </div>
@@ -258,6 +271,7 @@ footer p { margin: 0 0 8px; max-width: 44em; }
 
   <main class="wrap" id="content">
     <section class="tools">
+      <p class="spoil">Spoilers ahead. Open a card only after you have watched the titles before it.</p>
       <p class="note" id="modeNote"></p>
       <div id="listTools">
         <div class="r"><button class="next" id="next"></button><button class="textbtn" id="toggleAll">Open all</button></div>
@@ -311,7 +325,7 @@ footer p { margin: 0 0 8px; max-width: 44em; }
 
   <footer>
     <div class="wrap">
-      <p>Written as of September 28, 2026, from Marvel's announcements. Cast and story details may change before release.</p>
+      <p>Written as of September 28, 2026, from Marvel's announcements and public reports. Cast and story details may change before release.</p>
       <p>Nothing here reveals how Doom causes, exploits or prevents the collision. Marvel has not said.</p>
       <p>An unofficial fan guide, not affiliated with or endorsed by Marvel.</p>
     </div>
@@ -336,7 +350,7 @@ const titles = [
     leads: "Every Avengers story. Tony's arc closes in Endgame." },
   { id: "firstavenger", ch: "avengers", name: "Captain America: The First Avenger", meta: "2011", level: 3, core: true, to: ["endgame", "doomsday"],
     why: "Steve Rogers, the super soldier serum, Peggy Carter, and how Steve ends up in the modern world. Watch the Steve and Peggy relationship closely.",
-    leads: "Endgame, where their story reconnects. Chris Evans and Hayley Atwell are both confirmed for Doomsday." },
+    leads: "Endgame, where their story reconnects. Chris Evans and Hayley Atwell (as Peggy Carter, version not specified) are both confirmed for Doomsday." },
   { id: "avengers", ch: "avengers", name: "The Avengers", meta: "2012", level: 3, core: true, to: ["endgame", "loki1"],
     why: "Earth's Mightiest Heroes assemble against Loki, who goes from villain to one of the most important figures in the Multiverse Saga.",
     leads: "Endgame's return to 2012, where Loki escapes, and then the Loki series." },
@@ -357,7 +371,7 @@ const titles = [
     leads: "Endgame." },
   { id: "endgame", ch: "avengers", name: "Avengers: Endgame", meta: "2019", level: 4, core: true, to: ["loki1", "doomsday"],
     why: "The most important film before the Multiverse Saga. Time travel creates branching timelines, and during the 2012 sequence Loki escapes with the Tesseract. Steve's ending reconnects him with Peggy.",
-    leads: "Loki, and Steve and Peggy's return in Doomsday." },
+    leads: "Loki, and Steve Rogers and Peggy Carter, both returning in Doomsday." },
 
   { id: "loki1", ch: "multiverse", name: "Loki, season 1", meta: "Series, 2021", level: 4, core: true, to: ["nwh", "mom", "dp", "loki2"],
     why: "The best single preparation. You learn the TVA, the Sacred Timeline, variants, branching timelines, nexus events, and the moment the MCU stops being one controlled timeline.",
@@ -418,25 +432,18 @@ const titles = [
     why: "Introduces Reed, Sue, Johnny and Ben, who live in their own retro-futuristic reality, not the usual MCU Earth. Marvel says it leads directly into Doomsday. Reed and Victor von Doom are one of Marvel's great rivalries. Stay for the credits.",
     leads: "Doomsday. This is where the film is heading." },
   { id: "visionquest", ch: "setup", name: "VisionQuest", meta: "Series, from October 14, 2026", level: 2, core: false, to: ["doomsday"],
-    why: "Continues WandaVision and Agatha All Along, with Vision and Ultron returning. Marvel has not made it required viewing, and Paul Bettany is not in the published Doomsday cast.",
+    why: "Concludes the WandaVision trilogy after Agatha All Along, with Vision and Ultron returning. Marvel has not made it required viewing, and Paul Bettany is not in the published Doomsday cast.",
     leads: "Possibly Doomsday. Watch it last, and raise its priority if a connection appears." }
 ];
 
 const levelNames = ["", "Optional", "Recommended", "Must watch", "Essential"];
 const notes = {
-  core: "Seventeen titles. A strong understanding without a full MCU marathon.",
-  full: "Twenty-eight titles, including the background films, for the most detailed route through the MCU and the X-Men.",
+  core: "Seventeen issues. The fast route to Doomsday, with nothing you need left out. Chapters run in story order, not release order, so the years jump around.",
+  full: "Twenty-eight issues, the full saga, including the background stories and the X-Men. Chapters run in story order, not release order, so the years jump around.",
   map: "Five places and the collision they lead into. Select a universe to see who lives there, what to watch and how it connects."
 };
 const byId = Object.fromEntries(titles.map(t => [t.id, t]));
 
-
-
-Object.assign(notes, {
-  core: "Seventeen issues. The fast route to Doomsday, with nothing you need left out.",
-  full: "Twenty-eight issues, the full saga, including the background stories and the X-Men.",
-  map: "Five places and the collision they lead into. Select a universe to see who lives there, what to watch and how it connects."
-});
 const chNarr = {
   avengers: "It started with a suit built in a cave and a soldier lost in the ice. Then came the team, the split, and an ending that changed everything.",
   multiverse: "Then time itself cracked. Timelines branched, variants appeared, and a quiet bureaucracy learned the multiverse cannot be filed away.",
@@ -457,44 +464,45 @@ const watched = new Set(store.get());
 
 const list = document.getElementById("list");
 const note = document.getElementById("modeNote");
+const seg = document.getElementById("seg");
 const segBtns = document.querySelectorAll("#seg button");
 const toggleAll = document.getElementById("toggleAll");
 const listTools = document.getElementById("listTools");
 const countEl = document.getElementById("count");
 const nextEl = document.getElementById("next");
 const pfill = document.getElementById("pfill");
-let mode = "core", route = "core", visible = [], nextTarget = null, wasComplete = false;
+let mode = "core", route = "core", visible = [], nextTarget = null, wasComplete = false, busy = false;
 
 const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 const NS = "http://www.w3.org/2000/svg";
 
 const U = [
-  { id: "doom", name: "Doomsday", tag: "Where the map meets", label: "Doomsday", sub: "", x: 210, y: 290, r: 46, c: "var(--ink)",
+  { id: "doom", name: "Doomsday", tag: "Where the map meets", label: "Doomsday", sub: "", x: 210, y: 290, r: 46, c: "var(--doom)", on: "#000",
     what: "Marvel describes Avengers: Doomsday as heroes from three distinct universes on a collision course.",
     who: "Victor von Doom, played by Robert Downey Jr., alongside Steve Rogers, Peggy Carter, Thor, Loki, Sam Wilson, the Fantastic Four, legacy X-Men, the New Avengers, Wakandans, Namor, Shang-Chi and Ant-Man.",
     link: "Marvel has not said which three universes. This guide reads them as Earth-616, Earth-828 and Earth-10005, but that is an inference. How Doom causes or exploits the collision has not been revealed.",
     watch: [] },
-  { id: "616", name: "Earth-616", tag: "The Sacred Timeline", label: "616", sub: "Sacred Timeline", x: 210, y: 100, r: 36, c: "var(--u1)", subAbove: true,
+  { id: "616", name: "Earth-616", tag: "The Sacred Timeline", label: "616", sub: "Sacred Timeline", x: 210, y: 100, r: 36, c: "var(--u1)", on: "#fff", subAbove: true,
     what: "The main MCU Earth, where Steve Rogers went into the ice, Tony Stark built his first suit and the Avengers assembled against Thanos. Its number is said on screen in Doctor Strange in the Multiverse of Madness. Marvel used Earth-199999 for it behind the scenes.",
     who: "The Avengers, Doctor Strange, Wanda, Loki, Sam Wilson as Captain America, the New Avengers from Thunderbolts*, Wakanda and Talokan.",
     link: "The home team. At the end of Thunderbolts*, a Fantastic Four ship appears here, teasing an arrival from another universe.",
     watch: ["endgame", "loki1", "mom", "thunder", "bnw"] },
-  { id: "828", name: "Earth-828", tag: "The Fantastic Four's world", label: "828", sub: "Fantastic Four", x: 367, y: 231, r: 36, c: "var(--u2)",
+  { id: "828", name: "Earth-828", tag: "The Fantastic Four's world", label: "828", sub: "Fantastic Four", x: 367, y: 231, r: 36, c: "var(--u2)", on: "#fff",
     what: "A retro-futuristic, 1960s-inspired New York, seen in The Fantastic Four: First Steps. The number is a tribute to Jack Kirby's birthday. It is close to 838 but is a different universe.",
     who: "Reed Richards (Pedro Pascal), Sue Storm, Johnny Storm and Ben Grimm. In this world the Fantastic Four appear to be the only superheroes.",
     link: "Marvel says First Steps leads directly into Doomsday. Reed and Victor von Doom are one of Marvel's great rivalries.",
     watch: ["f4", "thunder"] },
-  { id: "10005", name: "Earth-10005", tag: "The Fox X-Men world", label: "10005", sub: "Fox X-Men", x: 307, y: 444, r: 36, c: "var(--u3)", sm: true,
+  { id: "10005", name: "Earth-10005", tag: "The Fox X-Men world", label: "10005", sub: "Fox X-Men", x: 307, y: 444, r: 36, c: "var(--u3)", on: "#000", sm: true,
     what: "The universe of the original X-Men films, where Xavier and Magneto's disagreement drives everything. It is numbered Earth-10005 in coverage of Marvel's universe list and often nicknamed the FoxVerse.",
     who: "Patrick Stewart, Ian McKellen, James Marsden, Rebecca Romijn, Alan Cumming and Kelsey Grammer are confirmed for Doomsday, alongside Channing Tatum's Gambit.",
     link: "Deadpool & Wolverine is the bridge, and Kevin Feige has said it only scratched the surface. The Fox films already play with altered timelines in Days of Future Past.",
     watch: ["xmen", "x2", "dofp", "dp"] },
-  { id: "tva", name: "The TVA and the Void", tag: "Not an Earth", label: "TVA", sub: "Between realities", x: 113, y: 444, r: 36, c: "var(--muted)",
+  { id: "tva", name: "The TVA and the Void", tag: "Not an Earth", label: "TVA", sub: "Between realities", x: 113, y: 444, r: 36, c: "var(--tva)", on: "#000",
     what: "The Time Variance Authority sits outside any one universe and manages timelines. Loki season 1 ends with the Sacred Timeline branching into a multiverse. The Void is where pruned realities end up.",
     who: "Loki, Mobius, Sylvie and the TVA staff.",
     link: "The vocabulary you need: variants, branches, nexus events and pruning. Deadpool & Wolverine uses it to reach into the Fox world.",
     watch: ["loki1", "loki2", "dp"] },
-  { id: "838", name: "Earth-838", tag: "The Illuminati's Earth", label: "838", sub: "Illuminati", x: 53, y: 231, r: 36, c: "var(--muted)",
+  { id: "838", name: "Earth-838", tag: "The Illuminati's Earth", label: "838", sub: "Illuminati", x: 53, y: 231, r: 36, c: "var(--ill)", on: "#000",
     what: "Seen in Doctor Strange in the Multiverse of Madness, where the number is said aloud. Its Illuminati includes a Reed Richards played by John Krasinski, Captain Carter, Black Bolt, Mordo, Maria Rambeau as Captain Marvel and Professor X.",
     who: "The Illuminati, most of whom Wanda defeats in that film.",
     link: "Not the same as Earth-828, and Krasinski's Reed is not Pedro Pascal's. Marvel has not said whether this Earth returns in Doomsday.",
@@ -504,16 +512,9 @@ const byU = Object.fromEntries(U.map(u => [u.id, u]));
 const crossLinks = [["616", "828"], ["tva", "10005"]];
 let sel = "doom";
 
-
-
-U[0].c = "var(--doom)"; U[0].on = "#000";
-byU["616"].on = "#fff"; byU["828"].on = "#fff"; byU["10005"].on = "#000";
-byU.tva.c = "var(--tva)"; byU.tva.on = "#000";
-byU["838"].c = "var(--ill)"; byU["838"].on = "#000";
-
 /* ---------- Mind map ---------- */
 function panelInner(u) {
-  const chips = u.watch.map(id => `<button class="chip" data-open="${id}" style="--x:1">${esc(byId[id].name)}</button>`).join("");
+  const chips = u.watch.map(id => `<button class="chip" data-open="${id}">${esc(byId[id].name)}</button>`).join("");
   return `<div class="uh"><h3>${esc(u.name)}</h3><span class="tag2">${esc(u.tag)}</span></div>
     <div class="ub">
       <p><span class="lab">What it is</span>${esc(u.what)}</p>
@@ -547,9 +548,9 @@ function renderMap() {
     <div class="upanel" id="upanel" aria-live="polite">${panelInner(byU[sel])}</div>
     <p class="mapnote">Only the Earths this guide says matter for Doomsday are shown. There are others.</p>
   </div>`;
-  paintSel(true);
+  paintSel();
 }
-function paintSel(initial) {
+function paintSel() {
   const u = byU[sel];
   list.querySelectorAll(".node-g").forEach(g => {
     const on = g.dataset.u === sel;
@@ -613,7 +614,7 @@ function render() {
         <div class="top">
           <button class="head" aria-expanded="${n === 1}" aria-controls="p-${t.id}">
             <span class="issue">#${n}</span>
-            <span class="name"><b>${esc(t.name)}</b><small>${esc(t.meta)}</small></span>
+            <span class="name"><b>${esc(t.name)}</b><small>${esc(t.meta)}</small><span class="sticker lvm lv${t.level}">${levelNames[t.level]}</span></span>
             <span class="sticker lv${t.level}">${levelNames[t.level]}</span>
             <span class="chev" aria-hidden="true"></span>
           </button>
@@ -664,29 +665,38 @@ function goTo(id) {
 }
 
 /* Page-turn wipe between views */
-function wipe(mid) {
+function wipe(mid, done) {
   const w = document.getElementById("wipe");
-  if (reduce) { mid(); return; }
+  if (reduce) { mid(); done(); return; }
   w.style.display = "block";
   const a = w.animate([{ clipPath: "polygon(0 0, 0 0, -25% 100%, -25% 100%)" }, { clipPath: "polygon(0 0, 125% 0, 100% 100%, -25% 100%)" }], { duration: 300, easing: "cubic-bezier(.7,0,.3,1)", fill: "forwards" });
   a.onfinish = () => {
     mid();
     const b = w.animate([{ clipPath: "polygon(0 0, 125% 0, 100% 100%, -25% 100%)" }, { clipPath: "polygon(125% 0, 125% 0, 100% 100%, 100% 100%)" }], { duration: 300, easing: "cubic-bezier(.7,0,.3,1)", fill: "forwards" });
-    b.onfinish = () => { w.style.display = "none"; };
+    b.onfinish = () => { w.style.display = "none"; done(); };
   };
 }
+function syncSeg() {
+  segBtns.forEach(x => {
+    const on = x.dataset.mode === mode;
+    x.setAttribute("aria-checked", on ? "true" : "false");
+    x.tabIndex = on ? 0 : -1;
+  });
+}
 function setMode(m, after) {
+  if (busy) return;
   if (m === mode) { if (after) after(); return; }
+  busy = true;
   const prev = mode;
   wipe(() => {
     mode = m;
     if (m !== "map") route = m;
-    segBtns.forEach(x => x.setAttribute("aria-checked", x.dataset.mode === mode ? "true" : "false"));
+    syncSeg();
     render();
     observe();
     if (prev === "map" || mode === "map") document.getElementById("content").scrollIntoView({ block: "start" });
     if (after) after();
-  });
+  }, () => { busy = false; });
 }
 function openTitle(id) {
   const need = byId[id].core ? (mode === "map" ? route : mode) : "full";
@@ -701,11 +711,6 @@ function impact() {
     { transform: "translate(0,0)" }, { transform: "translate(-9px,5px)" }, { transform: "translate(8px,-6px)" },
     { transform: "translate(-6px,-4px)" }, { transform: "translate(5px,4px)" }, { transform: "translate(0,0)" }
   ], { duration: 420, easing: "linear" });
-}
-function vibrateFinale() {
-  if (reduce || finaleVibrated || typeof navigator.vibrate !== "function" || !matchMedia("(pointer: coarse)").matches) return;
-  finaleVibrated = true;
-  try { navigator.vibrate([30, 55, 45, 55, 70, 50, 105, 40, 280]); } catch (e) {}
 }
 function sfxAt(btn) {
   if (reduce) return;
@@ -728,6 +733,16 @@ function sfxAt(btn) {
 
 /* Events */
 segBtns.forEach(b => b.addEventListener("click", () => setMode(b.dataset.mode)));
+seg.addEventListener("keydown", e => {
+  const d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+  if (!d) return;
+  e.preventDefault();
+  const arr = [...segBtns];
+  const i = arr.indexOf(document.activeElement);
+  const nb = arr[(i + d + arr.length) % arr.length];
+  nb.focus();
+  setMode(nb.dataset.mode);
+});
 toggleAll.addEventListener("click", () => {
   const all = [...list.querySelectorAll(".panel")];
   const open = !all.every(e => e.classList.contains("open"));
@@ -778,26 +793,18 @@ function runVO() {
 /* Finale */
 const finale = document.getElementById("finale");
 let finaleVisible = false;
-let finaleVibrated = false;
 new IntersectionObserver(es => es.forEach(en => {
   if (en.isIntersecting && !finaleVisible) {
     finaleVisible = true;
-    finaleVibrated = false;
     finale.classList.remove("go");
     void finale.offsetWidth;
     finale.classList.add("go");
-    setTimeout(() => { impact(); vibrateFinale(); }, 250);
+    setTimeout(impact, 250);
   } else if (!en.isIntersecting) {
     finaleVisible = false;
     finale.classList.remove("go");
-    if (typeof navigator.vibrate === "function") navigator.vibrate(0);
   }
 }), { threshold: 0.45 }).observe(finale);
-const vibrateOnFinaleGesture = () => { if (finaleVisible) vibrateFinale(); };
-window.addEventListener("pointerdown", vibrateOnFinaleGesture, { passive: true });
-window.addEventListener("pointerup", vibrateOnFinaleGesture, { passive: true });
-window.addEventListener("touchstart", vibrateOnFinaleGesture, { passive: true });
-window.addEventListener("touchend", vibrateOnFinaleGesture, { passive: true });
 
 /* Title shake once it lands */
 if (!reduce) setTimeout(() => {
@@ -805,6 +812,29 @@ if (!reduce) setTimeout(() => {
     { transform: "translate(0,0)" }, { transform: "translate(-7px,4px)" }, { transform: "translate(6px,-4px)" }, { transform: "translate(-3px,-2px)" }, { transform: "translate(0,0)" }
   ], { duration: 320 });
 }, 1300);
+
+/* Countdown to December 18, 2026 (local midnight) */
+const cd = document.getElementById("cd");
+const target = new Date(2026, 11, 18, 0, 0, 0).getTime();
+function tickCd() {
+  const ms = target - Date.now();
+  if (ms <= 0) {
+    cd.innerHTML = '<p class="cap">Avengers: Doomsday is out now.</p>';
+    cd.removeAttribute("aria-label");
+    return false;
+  }
+  const s = Math.floor(ms / 1000);
+  const parts = { d: Math.floor(s / 86400), h: Math.floor(s % 86400 / 3600), m: Math.floor(s % 3600 / 60), s: s % 60 };
+  Object.keys(parts).forEach(k => {
+    const el = cd.querySelector('[data-k="' + k + '"]');
+    if (el) el.textContent = k === "d" ? String(parts.d) : String(parts[k]).padStart(2, "0");
+  });
+  cd.setAttribute("aria-label", parts.d + " days until Avengers: Doomsday");
+  return true;
+}
+if (tickCd()) {
+  const iv = setInterval(() => { if (!tickCd()) clearInterval(iv); }, 1000);
+}
 
 render();
 observe();
