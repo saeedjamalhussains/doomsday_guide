@@ -703,7 +703,8 @@ function impact() {
   ], { duration: 420, easing: "linear" });
 }
 function vibrateFinale() {
-  if (reduce || !navigator.vibrate || !matchMedia("(pointer: coarse)").matches) return;
+  if (reduce || finaleVibrated || typeof navigator.vibrate !== "function" || !matchMedia("(pointer: coarse)").matches) return;
+  finaleVibrated = true;
   navigator.vibrate([30, 55, 45, 55, 70, 50, 105, 40, 280]);
 }
 function sfxAt(btn) {
@@ -777,9 +778,11 @@ function runVO() {
 /* Finale */
 const finale = document.getElementById("finale");
 let finaleVisible = false;
+let finaleVibrated = false;
 new IntersectionObserver(es => es.forEach(en => {
   if (en.isIntersecting && !finaleVisible) {
     finaleVisible = true;
+    finaleVibrated = false;
     finale.classList.remove("go");
     void finale.offsetWidth;
     finale.classList.add("go");
@@ -787,9 +790,12 @@ new IntersectionObserver(es => es.forEach(en => {
   } else if (!en.isIntersecting) {
     finaleVisible = false;
     finale.classList.remove("go");
-    if (navigator.vibrate) navigator.vibrate(0);
+    if (typeof navigator.vibrate === "function") navigator.vibrate(0);
   }
 }), { threshold: 0.45 }).observe(finale);
+const vibrateOnFinaleGesture = () => { if (finaleVisible) vibrateFinale(); };
+window.addEventListener("pointerup", vibrateOnFinaleGesture, { passive: true });
+window.addEventListener("touchend", vibrateOnFinaleGesture, { passive: true });
 
 /* Title shake once it lands */
 if (!reduce) setTimeout(() => {
