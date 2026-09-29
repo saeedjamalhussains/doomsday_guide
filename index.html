@@ -540,7 +540,7 @@ function renderMap() {
   const panels = ORDER.map(id => {
     const u = byU[id];
     return `<button class="pn ${SHAPE[id]}" data-u="${id}" style="--c:${u.c};--on:${u.on}" aria-label="${esc(u.name)}, ${esc(u.tag)}">
-      <span class="pf"><span class="eb">${id === "tva" ? "Not an Earth" : esc(u.name)}</span><b>${esc(u.label)}</b><small>${esc(u.sub)}</small></span></button>`;
+      <span class="pf"><span class="eb">${id === "tva" ? "Not an Earth" : esc(u.name)}</span>${id === "616" ? '<span class="pr">12¢</span>' : ""}<b>${esc(u.label)}</b><small>${esc(u.sub)}</small></span></button>`;
   }).join("");
   list.innerHTML = `<div class="mapwrap">
     <div class="splash" id="splash">${panels}
