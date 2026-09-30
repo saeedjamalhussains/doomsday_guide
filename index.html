@@ -1100,9 +1100,9 @@ async function makeCard(s) {
   x.font = "180px " + D; x.lineWidth = 16; x.strokeText(t, sx + w1 + 12, 830); x.fillStyle = "#ffdd3c"; x.fillText(t, sx + w1 + 12, 830);
   x.restore();
   x.textAlign = "center"; x.font = "700 44px " + C;
-  const cw = x.measureText("ISSUES WATCHED").width + 44;
+  const cw = x.measureText("WATCHED SO FAR").width + 44;
   x.fillStyle = "#ffdd3c"; x.fillRect(540 - cw / 2, 880, cw, 66); x.strokeStyle = "#000"; x.lineWidth = 6; x.strokeRect(540 - cw / 2, 880, cw, 66);
-  x.fillStyle = "#111"; x.fillText("ISSUES WATCHED", 540, 927);
+  x.fillStyle = "#111"; x.fillText("WATCHED SO FAR", 540, 927);
   x.fillStyle = "#ed1d24"; rr(x, 160, 260, 230, 62, 6); x.fill();
   x.fillStyle = "#fff"; x.font = "50px " + D; x.fillText("FAN GUIDE", 275, 308);
   x.textAlign = "right"; x.font = "62px " + D; x.lineWidth = 8; x.strokeStyle = "#000";
