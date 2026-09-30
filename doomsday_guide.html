@@ -49,6 +49,8 @@ h1 .l2{color:#fff;text-shadow:6px 6px 0 var(--red);animation:slam .75s cubic-bez
 .seg button{flex:1 1 0;min-width:0;background:transparent;border:0;color:#fff;font:400 clamp(16px,2.3vw,21px)/1 var(--display);letter-spacing:.08em;padding:9px clamp(5px,1.5vw,14px) 7px;cursor:pointer;transform:skewX(-10deg);transition:background-color .15s}
 @media (hover:hover){.seg button:hover{background:rgba(0,0,0,.25)}}
 .seg button[aria-checked="true"]{background:#000}
+.snd{flex:none;background:#000;color:#fff;border:0;font:400 16px/1 var(--display);letter-spacing:.08em;padding:8px 10px 6px;cursor:pointer;transform:skewX(-10deg);white-space:nowrap}
+.snd[aria-pressed="true"]{background:var(--cap);color:#000}
 .count{font:700 15px/1 var(--cond);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;min-width:92px;text-align:right}
 .pfill{position:absolute;left:0;bottom:0;height:4px;width:0;background:#fff;transition:width .6s cubic-bezier(.2,.8,.2,1)}
 
@@ -212,6 +214,33 @@ main{padding-bottom:40px}
 footer{position:relative;border-top:3px solid var(--red);padding:30px 0 80px;color:#999;font-size:14px}
 footer p{margin:0 0 8px;max-width:44em}
 
+.fab{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:70;width:clamp(86px,23vw,110px);aspect-ratio:1;border:0;padding:0;background:#000;clip-path:polygon(50% 0,60% 19%,81% 6%,77% 30%,100% 34%,83% 52%,98% 76%,73% 72%,68% 100%,50% 82%,32% 100%,27% 72%,2% 76%,17% 52%,0 34%,23% 30%,19% 6%,40% 19%);animation:throb 2.4s ease-in-out infinite;cursor:pointer}
+.fab i{position:absolute;inset:4px;background:var(--red);clip-path:inherit;display:grid;place-content:center;color:#fff;font:400 clamp(20px,5.4vw,26px)/.9 var(--display);letter-spacing:.04em;text-transform:uppercase;font-style:normal}
+#sheet{width:min(460px,calc(100% - 24px));max-height:calc(100% - 24px);margin:auto;overflow:auto;padding:0;background:#f7f4ee;color:#111;border:4px solid #000;box-shadow:10px 10px 0 var(--red)}
+#sheet[open]{animation:pop .35s cubic-bezier(.2,1.3,.4,1)}
+#sheet::backdrop{background:rgba(0,0,0,.85)}
+.shtop{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;background:var(--red);color:#fff;padding:14px 16px 10px;border-bottom:4px solid #000}
+#sheet h3{margin:0;font:400 clamp(38px,10vw,52px)/.9 var(--display);text-transform:uppercase;text-shadow:3px 3px 0 #000}
+.shx{flex:none;background:#000;color:#fff;border:0;font:400 26px/1 var(--display);padding:8px 14px 5px;transform:skewX(-10deg);cursor:pointer}
+.shbody{padding:18px 16px 20px;background:radial-gradient(circle,rgba(0,0,0,.1) 1px,transparent 1.5px) 0 0/8px 8px}
+#shimg{display:block;max-width:100%;max-height:38vh;margin:0 auto 18px;border:3px solid #000;box-shadow:5px 5px 0 #000;transform:rotate(-1.5deg);background:#000}
+#shtxt{display:block;width:100%;resize:none;margin:0 0 18px;background:var(--cap);color:#111;border:3px solid #000;box-shadow:4px 4px 0 #000;padding:12px 14px;font:600 16px/1.35 var(--cond);letter-spacing:.03em;transform:rotate(.6deg)}
+.shg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.so{background:var(--b,#000);color:var(--o,#fff);border:3px solid #000;box-shadow:4px 4px 0 #000;font:400 24px/1 var(--display);letter-spacing:.06em;text-transform:uppercase;padding:12px 8px 9px;transform:skewX(-6deg);transition:transform .15s,box-shadow .15s;cursor:pointer}
+@media (hover:hover){.so:hover{transform:skewX(-6deg) translate(-2px,-2px);box-shadow:7px 7px 0 #000}}
+.so:active{transform:skewX(-6deg) translate(2px,2px);box-shadow:1px 1px 0 #000}
+.so.pri,.so.cp,.so.mo{grid-column:1/-1}
+.so.pri{--b:var(--red);font-size:32px;padding:14px 8px 11px}
+.so.wa{--b:#25d366;--o:#000}.so.x{--b:#fff;--o:#000}.so.fb{--b:#3d8bff}.so.tg{--b:#29a9eb;--o:#000}.so.cp{--b:var(--cap);--o:#000}
+#shmsg{min-height:1.4em;margin:14px 0 0;font:700 15px/1.3 var(--cond);letter-spacing:.06em;text-transform:uppercase;color:#333}
+#eggs{position:fixed;inset:0;z-index:80;pointer-events:none;overflow:hidden}
+.egg{position:absolute;left:0;top:0;will-change:transform}
+.egg svg,.egg img{display:block;width:100%;height:100%;overflow:visible}
+.spider{width:56px;height:56px}
+.spider::before{content:"";position:absolute;left:50%;bottom:100%;width:2px;height:150vh;margin-left:-1px;background:rgba(255,255,255,.85)}
+.spider svg,.spider img{animation:sway 2.6s ease-in-out infinite alternate;transform-origin:50% 0}
+@keyframes sway{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
+
 @media (max-width:640px){
   body{font-size:16px}
   .brand{display:none}
@@ -268,6 +297,7 @@ footer p{margin:0 0 8px;max-width:44em}
         <button role="radio" aria-checked="false" tabindex="-1" data-mode="full">Complete</button>
         <button role="radio" aria-checked="false" tabindex="-1" data-mode="map">Mind map</button>
       </div>
+      <button class="snd" id="snd" aria-pressed="false">SFX OFF</button>
       <span class="count" id="count" aria-live="polite"></span>
     </div>
     <i class="pfill" id="pfill"></i>
@@ -335,6 +365,26 @@ footer p{margin:0 0 8px;max-width:44em}
     </div>
   </footer>
 </div>
+
+<button class="fab" id="fab" aria-label="Share"><i>Share</i></button>
+
+<dialog id="sheet" aria-labelledby="shh">
+  <div class="shtop"><h3 id="shh">Share the hype!</h3><button class="shx" id="shClose" aria-label="Close">X</button></div>
+  <div class="shbody">
+    <img id="shimg" alt="Your Before Doomsday progress card" hidden>
+    <textarea id="shtxt" rows="3" readonly aria-label="Share message"></textarea>
+    <div class="shg">
+      <button class="so pri" data-s="story">Instagram Story</button>
+      <button class="so wa" data-s="wa">WhatsApp</button>
+      <button class="so x" data-s="x">X</button>
+      <button class="so fb" data-s="fb">Facebook</button>
+      <button class="so tg" data-s="tg">Telegram</button>
+      <button class="so cp" data-s="copy">Copy text</button>
+      <button class="so mo" data-s="more" hidden>More apps...</button>
+    </div>
+    <p id="shmsg" aria-live="polite"></p>
+  </div>
+</dialog>
 
 <script>
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -458,6 +508,49 @@ const chNarr = {
 };
 const voLines = ["Earth's mightiest heroes.", "Three universes.", "One collision course.", "December 18."];
 const sfxWords = ["POW!", "BAM!", "ZAP!", "WHAM!", "KRAKOOM!"];
+let sndOn = false, ac = null;
+try { sndOn = localStorage.getItem("doomsday-sfx") === "1"; } catch (e) {}
+const sndBtn = document.getElementById("snd");
+const paintSnd = () => { if (!sndBtn) return; sndBtn.setAttribute("aria-pressed", sndOn ? "true" : "false"); sndBtn.textContent = sndOn ? "SFX ON" : "SFX OFF"; };
+function actx() {
+  if (!ac) { const A = window.AudioContext || window.webkitAudioContext; if (!A) return null; ac = new A(); }
+  if (ac.state === "suspended") ac.resume();
+  return ac;
+}
+function hit(c, t, dur, vol, freq) {
+  const b = c.createBuffer(1, Math.ceil(c.sampleRate * dur), c.sampleRate), d = b.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  const n = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain();
+  n.buffer = b; f.type = "lowpass"; f.frequency.setValueAtTime(freq, t); f.frequency.exponentialRampToValueAtTime(80, t + dur);
+  g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.001, t + dur);
+  n.connect(f); f.connect(g); g.connect(c.destination); n.start(t);
+}
+function tone(c, t, type, f0, f1, dur, vol) {
+  const o = c.createOscillator(), g = c.createGain();
+  o.type = type; o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + dur);
+  g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.001, t + dur);
+  o.connect(g); g.connect(c.destination); o.start(t); o.stop(t + dur);
+}
+function playSfx(w) {
+  if (!sndOn) return;
+  const c = actx(); if (!c) return;
+  const t = c.currentTime;
+  if (w === "POW!") { hit(c, t, .25, .7, 3000); tone(c, t, "square", 180, 50, .18, .2); }
+  else if (w === "BAM!") { hit(c, t, .3, .8, 1800); tone(c, t, "sine", 120, 40, .3, .6); }
+  else if (w === "ZAP!") { tone(c, t, "sawtooth", 1800, 120, .28, .18); tone(c, t, "square", 900, 60, .2, .08); }
+  else if (w === "WHAM!") { hit(c, t, .4, .9, 2500); tone(c, t, "triangle", 200, 35, .4, .6); }
+  else { hit(c, t, 1.2, 1, 1500); tone(c, t, "sine", 90, 25, 1.1, .8); tone(c, t + .05, "sawtooth", 300, 40, .6, .12); }
+}
+function pickWord() { const w = sfxWords[Math.floor(Math.random() * sfxWords.length)]; playSfx(w); return w; }
+if (sndBtn) {
+  sndBtn.addEventListener("click", () => {
+    sndOn = !sndOn;
+    try { localStorage.setItem("doomsday-sfx", sndOn ? "1" : "0"); } catch (e) {}
+    paintSnd();
+    if (sndOn) playSfx("POW!");
+  });
+  paintSnd();
+}
 
 /* Saved progress (private to this browser) */
 const store = {
@@ -591,7 +684,7 @@ function sfxMap(btn) {
   if (!s || reduce) return;
   const w = document.createElement("span");
   w.className = "sfxw";
-  w.textContent = sfxWords[Math.floor(Math.random() * sfxWords.length)];
+  w.textContent = pickWord();
   const r = btn.getBoundingClientRect(), p = s.getBoundingClientRect();
   w.style.left = Math.max(0, Math.min(r.left - p.left + r.width / 2 - 70, p.width - 190)) + "px";
   w.style.top = (r.top - p.top + r.height / 2 - 30) + "px";
@@ -749,7 +842,7 @@ function sfxAt(btn) {
   const p = btn.closest(".panel");
   const s = document.createElement("span");
   s.className = "sfx";
-  s.textContent = sfxWords[Math.floor(Math.random() * sfxWords.length)];
+  s.textContent = pickWord();
   const r = btn.getBoundingClientRect(), pr = p.getBoundingClientRect();
   s.style.left = Math.max(0, r.left - pr.left - 150) + "px";
   s.style.top = (r.top - pr.top - 34) + "px";
@@ -821,13 +914,18 @@ function runVO() {
 /* Finale */
 const finale = document.getElementById("finale");
 let finaleVisible = false;
+const vibrateFinale = () => {
+  if (typeof navigator !== "undefined" && "vibrate" in navigator) {
+    navigator.vibrate([30, 50, 80, 60, 130, 40]);
+  }
+};
 new IntersectionObserver(es => es.forEach(en => {
   if (en.isIntersecting && !finaleVisible) {
     finaleVisible = true;
     finale.classList.remove("go");
     void finale.offsetWidth;
     finale.classList.add("go");
-    setTimeout(impact, 250);
+    setTimeout(() => { impact(); vibrateFinale(); }, 250);
   } else if (!en.isIntersecting) {
     finaleVisible = false;
     finale.classList.remove("go");
@@ -867,6 +965,172 @@ function tickCd() {
 if (tickCd()) {
   const iv = setInterval(() => { if (!tickCd()) clearInterval(iv); }, 1000);
 }
+
+const sheet = document.getElementById("sheet"), shimg = document.getElementById("shimg"), shtxt = document.getElementById("shtxt"), shmsg = document.getElementById("shmsg");
+let cardBlob = null, shareMsg = "";
+const say = t => { shmsg.textContent = t; };
+const pageUrl = () => location.href.split("#")[0];
+const shareButtons = document.querySelectorAll("[data-s]");
+function stats() {
+  const short = { avengers: "AVENG", multiverse: "MULTI", xmen: "X-MEN", bridge: "BRIDGE", today: "TODAY", setup: "SETUP" };
+  const rows = chapters.map(({ id }) => {
+    const items = visible.filter(t => t.ch === id);
+    return { n: short[id], d: items.filter(t => watched.has(t.id)).length, t: items.length };
+  }).filter(r => r.t);
+  return { done: visible.filter(t => watched.has(t.id)).length, total: visible.length, days: Math.max(0, Math.ceil((target - Date.now()) / 864e5)), rows };
+}
+function rr(x, X, Y, W, H, R) {
+  x.beginPath(); x.moveTo(X + R, Y); x.arcTo(X + W, Y, X + W, Y + H, R); x.arcTo(X + W, Y + H, X, Y + H, R);
+  x.arcTo(X, Y + H, X, Y, R); x.arcTo(X, Y, X + W, Y, R); x.closePath();
+}
+async function makeCard(s) {
+  try { await Promise.all([document.fonts.load('240px "Bebas Neue"'), document.fonts.load('700 40px "Barlow Condensed"')]); } catch (e) {}
+  const c = document.createElement("canvas"); c.width = 1080; c.height = 1920;
+  const x = c.getContext("2d"), D = '"Bebas Neue",Impact,"Arial Narrow",sans-serif', C = '"Barlow Condensed","Arial Narrow",sans-serif';
+  const cols = ["#ed1d24", "#3d8bff", "#ffd21f", "#ff8a1f", "#a77bff", "#35c46a"];
+  x.textAlign = "center"; x.lineJoin = "round";
+  x.fillStyle = "#08080e"; x.fillRect(0, 0, 1080, 1920);
+  const bg = x.createRadialGradient(540, 800, 50, 540, 800, 900);
+  bg.addColorStop(0, "rgba(120,80,200,.35)"); bg.addColorStop(1, "rgba(0,0,0,0)");
+  x.fillStyle = bg; x.fillRect(0, 0, 1080, 1920);
+  x.fillStyle = "#fff"; x.font = "96px " + D; x.fillText("MY DOOMSDAY CARD", 540, 150);
+  const ch = x.createLinearGradient(120, 220, 960, 1396);
+  [[0, "#f4f6ff"], [.2, "#9aa0b8"], [.4, "#ffffff"], [.6, "#7c8299"], [.8, "#e6e9f5"], [1, "#8a90a8"]].forEach(a => ch.addColorStop(a[0], a[1]));
+  rr(x, 120, 220, 840, 1176, 34); x.fillStyle = ch; x.fill();
+  rr(x, 136, 236, 808, 1144, 22); x.fillStyle = "#000"; x.fill();
+  x.save(); rr(x, 140, 240, 800, 1136, 18); x.clip();
+  const a = x.createLinearGradient(0, 240, 0, 1376);
+  a.addColorStop(0, "#3b1a63"); a.addColorStop(.6, "#5a2a86"); a.addColorStop(1, "#1a0d2e");
+  x.fillStyle = a; x.fillRect(140, 240, 800, 1136);
+  [[300, 1150, 520, "255,138,31", .6], [800, 420, 520, "167,123,255", .55], [540, 260, 420, "237,29,36", .35]].forEach(g => {
+    const r = x.createRadialGradient(g[0], g[1], 0, g[0], g[1], g[2]);
+    r.addColorStop(0, "rgba(" + g[3] + "," + g[4] + ")"); r.addColorStop(1, "rgba(" + g[3] + ",0)");
+    x.fillStyle = r; x.fillRect(140, 240, 800, 1136);
+  });
+  x.fillStyle = "rgba(255,255,255,.07)";
+  for (let i = 0; i < 24; i += 2) {
+    const t = i * Math.PI / 12, u = t + Math.PI / 12;
+    x.beginPath(); x.moveTo(540, 700); x.lineTo(540 + 1200 * Math.cos(t), 700 + 1200 * Math.sin(t)); x.lineTo(540 + 1200 * Math.cos(u), 700 + 1200 * Math.sin(u)); x.closePath(); x.fill();
+  }
+  x.fillStyle = "rgba(0,0,0,.1)";
+  for (let r = 0; r < 64; r++) for (let q = 0; q < 45; q++) { x.beginPath(); x.arc(140 + q * 18 + (r % 2) * 9, 240 + r * 18, 2.6, 0, 7); x.fill(); }
+  x.strokeStyle = "rgba(255,255,255,.09)"; x.lineWidth = 3;
+  for (let k = -1200; k < 800; k += 16) { x.beginPath(); x.moveTo(140 + k, 240); x.lineTo(140 + k + 680, 1376); x.stroke(); }
+  const rb = x.createLinearGradient(140, 240, 940, 1376);
+  [[0, "rgba(255,0,140,.16)"], [.3, "rgba(255,221,60,.12)"], [.6, "rgba(0,255,200,.12)"], [1, "rgba(120,80,255,.18)"]].forEach(k => rb.addColorStop(k[0], k[1]));
+  x.fillStyle = rb; x.fillRect(140, 240, 800, 1136);
+  const n = String(s.done), t = "/" + s.total; x.textAlign = "left";
+  x.font = "470px " + D; const w1 = x.measureText(n).width;
+  x.font = "180px " + D; const w2 = x.measureText(t).width;
+  const sx = 540 - (w1 + w2 + 12) / 2;
+  x.lineWidth = 26; x.strokeStyle = "#000"; x.font = "470px " + D; x.strokeText(n, sx, 830); x.fillStyle = "#fff"; x.fillText(n, sx, 830);
+  x.font = "180px " + D; x.lineWidth = 16; x.strokeText(t, sx + w1 + 12, 830); x.fillStyle = "#ffdd3c"; x.fillText(t, sx + w1 + 12, 830);
+  x.restore();
+  x.textAlign = "center"; x.font = "700 44px " + C;
+  const cw = x.measureText("ISSUES WATCHED").width + 44;
+  x.fillStyle = "#ffdd3c"; x.fillRect(540 - cw / 2, 880, cw, 66); x.strokeStyle = "#000"; x.lineWidth = 6; x.strokeRect(540 - cw / 2, 880, cw, 66);
+  x.fillStyle = "#111"; x.fillText("ISSUES WATCHED", 540, 927);
+  x.fillStyle = "#ed1d24"; rr(x, 160, 260, 230, 62, 6); x.fill();
+  x.fillStyle = "#fff"; x.font = "50px " + D; x.fillText("FAN GUIDE", 275, 308);
+  x.textAlign = "right"; x.font = "62px " + D; x.lineWidth = 8; x.strokeStyle = "#000";
+  x.strokeText("DOOMSDAY", 920, 310); x.fillStyle = "#fff"; x.fillText("DOOMSDAY", 920, 310);
+  x.font = "700 30px " + C; x.lineWidth = 6; x.strokeText("FAN CHROME", 920, 344); x.fillStyle = "#ffdd3c"; x.fillText("FAN CHROME", 920, 344);
+  const full = s.done === s.total && s.total > 0, P = 16;
+  x.beginPath();
+  for (let i = 0; i < P * 2; i++) { const r = i % 2 ? 66 : 100, q = i * Math.PI / P - Math.PI / 2; x.lineTo(790 + r * Math.cos(q), 480 + r * Math.sin(q)); }
+  x.closePath(); x.fillStyle = "#ffdd3c"; x.fill(); x.lineWidth = 7; x.strokeStyle = "#000"; x.stroke();
+  x.save(); x.translate(790, 498); x.rotate(-.2); x.textAlign = "center"; x.font = (full ? "46px " : "60px ") + D; x.lineWidth = 6;
+  x.strokeText(full ? "READY!" : "POW!", 0, 0); x.fillStyle = "#ed1d24"; x.fillText(full ? "READY!" : "POW!", 0, 0); x.restore();
+  const V = [[160, 1150], [215, 1150], [230, 1225], [245, 1150], [300, 1150], [252, 1292], [208, 1292]];
+  const vp = () => { x.beginPath(); V.forEach((p, i) => i ? x.lineTo(p[0], p[1]) : x.moveTo(p[0], p[1])); x.closePath(); };
+  vp(); x.fillStyle = "#111"; x.fill(); x.lineWidth = 10; x.strokeStyle = "#fff"; x.stroke();
+  x.save(); x.translate(230, 1225); x.scale(.55, .55); x.translate(-230, -1225); vp(); x.fillStyle = "#ffdd3c"; x.fill(); x.restore();
+  s.rows.forEach((r, i) => {
+    const cx = 330 + i * 102;
+    x.fillStyle = "#14141c"; x.fillRect(cx, 1176, 90, 28);
+    x.fillStyle = cols[i % 6]; x.fillRect(cx, 1176, 90 * (r.t ? r.d / r.t : 0), 28);
+    x.strokeStyle = "#000"; x.lineWidth = 3; x.strokeRect(cx, 1176, 90, 28);
+    x.textAlign = "center"; x.fillStyle = "#fff"; x.font = "700 22px " + C; x.fillText(r.n, cx + 45, 1230);
+  });
+  const p = s.total ? s.done / s.total : 0;
+  const rank = p === 0 ? "BYSTANDER" : p < .34 ? "ROOKIE" : p < .67 ? "SIDEKICK" : p < 1 ? "AVENGER" : "DOOMSDAY READY";
+  x.fillStyle = "#000"; x.beginPath(); x.moveTo(330, 1262); x.lineTo(936, 1262); x.lineTo(936, 1326); x.lineTo(296, 1326); x.closePath(); x.fill();
+  x.fillStyle = "#ffdd3c"; x.beginPath(); x.moveTo(296, 1334); x.lineTo(936, 1334); x.lineTo(936, 1352); x.lineTo(288, 1352); x.closePath(); x.fill();
+  x.textAlign = "left"; x.fillStyle = "#fff"; x.font = "58px " + D; x.fillText(rank, 360, 1314);
+  x.textAlign = "center";
+  const dt = s.days ? s.days + (s.days === 1 ? " DAY TO GO" : " DAYS TO GO") : "OUT NOW";
+  x.font = "150px " + D; x.fillStyle = "#ed1d24"; x.fillText(dt, 546, 1596); x.fillStyle = "#fff"; x.fillText(dt, 540, 1590);
+  x.font = "700 44px " + C; x.fillText("AVENGERS: DOOMSDAY  /  DEC 18, 2026", 540, 1660);
+  x.fillStyle = "#ffdd3c"; x.font = "700 50px " + C; x.fillText("CATCH UP, TRUE BELIEVER.", 540, 1770);
+  x.fillStyle = "#888"; x.font = "600 30px " + C; x.fillText("An unofficial fan guide", 540, 1850);
+  x.save(); rr(x, 120, 220, 840, 1176, 34); x.clip(); x.fillStyle = "rgba(255,255,255,.08)";
+  x.beginPath(); x.moveTo(120, 900); x.lineTo(640, 220); x.lineTo(820, 220); x.lineTo(120, 1120); x.closePath(); x.fill(); x.restore();
+  return c;
+}
+async function openShare() {
+  const s = stats();
+  shareMsg = "I've watched " + s.done + "/" + s.total + " on the road to Avengers: Doomsday" + (s.days ? " (" + s.days + " days to go)" : "") + ".";
+  shtxt.value = shareMsg + " Catch up: " + pageUrl();
+  say(""); shimg.hidden = true; cardBlob = null;
+  if (!sheet.open) sheet.showModal();
+  playSfx("ZAP!");
+  const c = await makeCard(s);
+  shimg.src = c.toDataURL("image/png"); shimg.hidden = false;
+  c.toBlob(b => { cardBlob = b; }, "image/png");
+}
+async function doShare(k) {
+  const w = pickWord(), t = shtxt.value, u = pageUrl(), q = encodeURIComponent;
+  if (k === "story") {
+    if (!cardBlob) return say("Still drawing the card, try again in a second.");
+    const f = new File([cardBlob], "before-doomsday.png", { type: "image/png" });
+    if (navigator.canShare && navigator.canShare({ files: [f] })) { try { await navigator.share({ files: [f], text: t }); } catch (e) {} }
+    else say("File sharing isn't available here. Press and hold the card to save it, then add it to your Story.");
+  } else if (k === "copy") {
+    try { await navigator.clipboard.writeText(t); say(w + " Copied!"); }
+    catch (e) { shtxt.select(); say("Copy is blocked here. Text selected, copy it manually."); }
+  } else if (k === "more") {
+    try { await navigator.share({ text: shareMsg, url: u }); } catch (e) {}
+  } else {
+    const L = { wa: "https://wa.me/?text=" + q(t), x: "https://twitter.com/intent/tweet?text=" + q(t), fb: "https://www.facebook.com/sharer/sharer.php?u=" + q(u), tg: "https://t.me/share/url?url=" + q(u) + "&text=" + q(shareMsg) };
+    window.open(L[k], "_blank", "noopener"); say(w + " Opening...");
+  }
+}
+const fab = document.getElementById("fab");
+if (fab) fab.addEventListener("click", openShare);
+const shClose = document.getElementById("shClose");
+if (shClose) shClose.onclick = () => sheet.close();
+if (sheet) sheet.addEventListener("click", e => {
+  if (e.target === sheet) return sheet.close();
+  const b = e.target.closest("[data-s]"); if (b) doShare(b.dataset.s);
+});
+if (shareButtons.length) shareButtons.forEach(btn => { if (!navigator.share && btn.dataset.s === "more") btn.hidden = true; });
+
+if (!reduce) (function () {
+  const layer = document.createElement("div"); layer.id = "eggs"; document.body.appendChild(layer);
+  const art = {
+    spider: '<svg viewBox="0 0 64 64"><g stroke="#1b3d8f" stroke-width="3" fill="none" stroke-linecap="round"><path d="M32 30L10 14L4 26M32 32L6 36L8 52M32 34L12 54L20 62M32 36L26 60M32 30L54 14L60 26M32 32L58 36L56 52M32 34L52 54L44 62M32 36L38 60"/></g><ellipse cx="32" cy="40" rx="11" ry="14" fill="#ed1d24" stroke="#000" stroke-width="2"/><circle cx="32" cy="24" r="8" fill="#3d8bff" stroke="#000" stroke-width="2"/><circle cx="29" cy="23" r="2" fill="#fff"/><circle cx="35" cy="23" r="2" fill="#fff"/></svg>'
+  };
+  const mk = (k, cls) => {
+    const e = document.createElement("div");
+    e.className = "egg " + cls; e.setAttribute("aria-hidden", "true");
+    e.innerHTML = art[k];
+    layer.appendChild(e); return e;
+  };
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const later = (fn, a, b) => setTimeout(() => document.hidden ? later(fn, a, b) : fn(), rnd(a, b) * 1000);
+  function spider() {
+    const e = mk("spider", "spider"), vw = innerWidth, vh = innerHeight, drop = rnd(.25, .55) * vh;
+    e.style.left = rnd(.08, .85) * vw + "px";
+    e.animate([
+      { transform: "translateY(-90px)" },
+      { transform: "translateY(" + drop + "px)", offset: .4, easing: "ease-in-out" },
+      { transform: "translateY(" + (drop + 12) + "px)", offset: .7, easing: "ease-in-out" },
+      { transform: "translateY(-120px)" }
+    ], { duration: 16000, easing: "ease-in-out" }).onfinish = () => { e.remove(); later(spider, 50, 100); };
+  }
+  if (location.hash === "#eggs") spider();
+  else later(spider, 12, 25);
+})();
 
 render();
 observe();
