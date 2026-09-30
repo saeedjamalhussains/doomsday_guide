@@ -224,6 +224,10 @@ main{padding-bottom:40px}
 #wipe{position:fixed;inset:0;background:var(--red);z-index:200;display:none;pointer-events:none}
 footer{position:relative;border-top:3px solid var(--red);padding:30px 0 80px;color:#999;font-size:14px}
 footer p{margin:0 0 8px;max-width:44em}
+.gh{display:inline-flex;align-items:center;gap:10px;margin-top:18px;color:#fff;text-decoration:none;font:700 15px/1 var(--cond);letter-spacing:.12em;text-transform:uppercase;border:2px solid #fff;padding:10px 14px 9px;transform:skewX(-6deg);box-shadow:4px 4px 0 var(--red);transition:transform .15s,box-shadow .15s,background-color .15s}
+.gh svg{width:22px;height:22px;fill:currentColor;flex:none}
+@media (hover:hover){.gh:hover{background:var(--red);transform:skewX(-6deg) translate(-2px,-2px);box-shadow:7px 7px 0 #fff}}
+@media (pointer:coarse){.gh{min-height:44px}}
 
 .fab{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:70;width:clamp(86px,23vw,110px);aspect-ratio:1;border:0;padding:0;background:#000;clip-path:polygon(50% 0,60% 19%,81% 6%,77% 30%,100% 34%,83% 52%,98% 76%,73% 72%,68% 100%,50% 82%,32% 100%,27% 72%,2% 76%,17% 52%,0 34%,23% 30%,19% 6%,40% 19%);animation:throb 2.4s ease-in-out infinite;cursor:pointer}
 .fab i{position:absolute;inset:4px;background:var(--red);clip-path:inherit;display:grid;place-content:center;color:#fff;font:400 clamp(20px,5.4vw,26px)/.9 var(--display);letter-spacing:.04em;text-transform:uppercase;font-style:normal}
@@ -375,6 +379,10 @@ footer p{margin:0 0 8px;max-width:44em}
       <p>Written as of September 28, 2026, from Marvel's announcements and public reports. Cast and story details may change before release.</p>
       <p>Nothing here reveals how Doom causes, exploits or prevents the collision. Marvel has not said.</p>
       <p>An unofficial fan guide, not affiliated with or endorsed by Marvel.</p>
+      <a class="gh" href="https://github.com/saeedjamalhussains" target="_blank" rel="noopener noreferrer" aria-label="View this project on GitHub">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        <span>GitHub</span>
+      </a>
     </div>
   </footer>
 </div>
@@ -546,6 +554,17 @@ function tone(c, t, type, f0, f1, dur, vol) {
   g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.001, t + dur);
   o.connect(g); g.connect(c.destination); o.start(t); o.stop(t + dur);
 }
+/* Soft dial click: a low, rounded sine blip with a gentle attack. No noise, nothing crisp. */
+function dial(c, t, f, vol) {
+  const o = c.createOscillator(), g = c.createGain();
+  o.type = "sine";
+  o.frequency.setValueAtTime(f, t);
+  o.frequency.exponentialRampToValueAtTime(f * .72, t + .07);
+  g.gain.setValueAtTime(.0001, t);
+  g.gain.linearRampToValueAtTime(vol, t + .01);
+  g.gain.exponentialRampToValueAtTime(.0001, t + .09);
+  o.connect(g); g.connect(c.destination); o.start(t); o.stop(t + .1);
+}
 function playSfx(w) {
   if (!sndOn) return;
   const c = actx(); if (!c) return;
@@ -554,36 +573,20 @@ function playSfx(w) {
   else if (w === "BAM!") { hit(c, t, .3, .8, 1800); tone(c, t, "sine", 120, 40, .3, .6); }
   else if (w === "ZAP!") { tone(c, t, "sawtooth", 1800, 120, .28, .18); tone(c, t, "square", 900, 60, .2, .08); }
   else if (w === "WHAM!") { hit(c, t, .4, .9, 2500); tone(c, t, "triangle", 200, 35, .4, .6); }
-  else if (w === "TICK") { tone(c, t, "square", 760, 320, .07, .05); hit(c, t, .05, .06, 4000); }
+  else if (w === "TICK") { dial(c, t, 360, .03); }
   else { hit(c, t, 1.2, 1, 1500); tone(c, t, "sine", 90, 25, 1.1, .8); tone(c, t + .05, "sawtooth", 300, 40, .6, .12); }
 }
 function pickWord() { const w = sfxWords[Math.floor(Math.random() * sfxWords.length)]; playSfx(w); return w; }
 
-/* Scroll whoosh: filtered noise, louder and brighter the faster you scroll */
-function swoosh(sp, dir) {
-  const c = ac; if (!c || c.state !== "running") return;
-  const t = c.currentTime, dur = .16 + .1 * (1 - sp);
-  const b = c.createBuffer(1, Math.ceil(c.sampleRate * dur), c.sampleRate), d = b.getChannelData(0);
-  for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-  const n = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain();
-  const lo = 500 + sp * 700, hi = 2200 + sp * 1800;
-  n.buffer = b; f.type = "bandpass"; f.Q.value = 1.2;
-  f.frequency.setValueAtTime(dir > 0 ? lo : hi, t);
-  f.frequency.exponentialRampToValueAtTime(dir > 0 ? hi : lo, t + dur);
-  g.gain.setValueAtTime(.001, t);
-  g.gain.linearRampToValueAtTime(.05 + .12 * sp, t + dur * .4);
-  g.gain.exponentialRampToValueAtTime(.001, t + dur);
-  n.connect(f); f.connect(g); g.connect(c.destination); n.start(t);
-}
-let sy = scrollY, sAcc = 0, sT = performance.now(), sLast = 0;
+/* Scroll dial: one soft click per chunk of scrolling, slightly higher going down, slightly lower going up */
+let sy = scrollY, sAcc = 0, sLast = 0;
 addEventListener("scroll", () => {
   if (!sndOn || !ac || ac.state !== "running") return;
   const y = scrollY, now = performance.now(), dy = y - sy;
   sy = y; sAcc += Math.abs(dy);
-  if (sAcc < 320 || now - sLast < 140) return;
-  const speed = Math.min(1, (sAcc / Math.max(1, now - sT)) / 2.5);
-  swoosh(speed, dy >= 0 ? 1 : -1);
-  sAcc = 0; sT = sLast = now;
+  if (sAcc < 160 || now - sLast < 110) return;
+  dial(ac, ac.currentTime, dy >= 0 ? 380 : 320, .028);
+  sAcc = 0; sLast = now;
 }, { passive: true });
 
 /* Haptics: Android via vibrate(), iPhone Safari 17.4+ via a switch-checkbox tick */
@@ -1042,7 +1045,7 @@ const say = t => { shmsg.textContent = t; };
 const pageUrl = () => location.href.split("#")[0];
 const shareButtons = document.querySelectorAll("[data-s]");
 function stats() {
-  const short = { avengers: "AVENG", multiverse: "MULTI", xmen: "X-MEN", bridge: "BRIDGE", today: "TODAY", setup: "SETUP" };
+  const short = { avengers: "HEROES", multiverse: "TIME", xmen: "MUTANTS", bridge: "LINK", today: "NEW", setup: "FINAL" };
   const rows = chapters.map(({ id }) => {
     const items = visible.filter(t => t.ch === id);
     return { n: short[id], d: items.filter(t => watched.has(t.id)).length, t: items.length };
@@ -1103,8 +1106,8 @@ async function makeCard(s) {
   x.fillStyle = "#ed1d24"; rr(x, 160, 260, 230, 62, 6); x.fill();
   x.fillStyle = "#fff"; x.font = "50px " + D; x.fillText("FAN GUIDE", 275, 308);
   x.textAlign = "right"; x.font = "62px " + D; x.lineWidth = 8; x.strokeStyle = "#000";
-  x.strokeText("DOOMSDAY", 920, 310); x.fillStyle = "#fff"; x.fillText("DOOMSDAY", 920, 310);
-  x.font = "700 30px " + C; x.lineWidth = 6; x.strokeText("FAN CHROME", 920, 344); x.fillStyle = "#ffdd3c"; x.fillText("FAN CHROME", 920, 344);
+  x.strokeText("GET READY", 920, 310); x.fillStyle = "#fff"; x.fillText("GET READY", 920, 310);
+  x.font = "700 30px " + C; x.lineWidth = 6; x.strokeText("CATCH UP ASAP", 920, 344); x.fillStyle = "#ffdd3c"; x.fillText("CATCH UP ASAP", 920, 344);
   const full = s.done === s.total && s.total > 0, P = 16;
   x.beginPath();
   for (let i = 0; i < P * 2; i++) { const r = i % 2 ? 66 : 100, q = i * Math.PI / P - Math.PI / 2; x.lineTo(790 + r * Math.cos(q), 480 + r * Math.sin(q)); }
