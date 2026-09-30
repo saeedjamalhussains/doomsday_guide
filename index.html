@@ -7,9 +7,12 @@
 <title>Before Doomsday</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%A5%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500&family=Barlow+Condensed:wght@600;700&family=Bebas+Neue&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&text=POW!BAMZHKR&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500&family=Barlow+Condensed:wght@600;700&family=Bebas+Neue&family=Bangers&display=swap"></noscript>
 <style>
-:root{--red:#ed1d24;--black:#000;--paper:#f7f4ee;--cap:#ffdd3c;--u1:#ed1d24;--u2:#3d8bff;--u3:#ffd21f;--tva:#ff8a1f;--ill:#a77bff;--doom:#35c46a;--display:"Bebas Neue",Impact,"Arial Narrow",sans-serif;--cond:"Barlow Condensed","Arial Narrow",sans-serif;--sfx:"Bangers",Impact,sans-serif;--gutter:clamp(14px,4vw,22px);box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--red:#ed1d24;--black:#000;--paper:#f7f4ee;--cap:#ffdd3c;--u1:#ed1d24;--u2:#3d8bff;--u3:#ffd21f;--tva:#ff8a1f;--ill:#a77bff;--doom:#35c46a;--display:"Bebas Neue",Impact,"Arial Narrow",sans-serif;--cond:"Barlow Condensed","Arial Narrow",sans-serif;--sfx:"Bangers",Impact,sans-serif;--gutter:clamp(14px,4vw,22px);--star:polygon(50% 0,60% 19%,81% 6%,77% 30%,100% 34%,83% 52%,98% 76%,73% 72%,68% 100%,50% 82%,32% 100%,27% 72%,2% 76%,17% 52%,0 34%,23% 30%,19% 6%,40% 19%);box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
 *,*::before,*::after{box-sizing:border-box}
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
@@ -50,7 +53,6 @@ h1 .l2{color:#fff;text-shadow:6px 6px 0 var(--red);animation:slam .75s cubic-bez
 @media (hover:hover){.seg button:hover{background:rgba(0,0,0,.25)}}
 .seg button[aria-checked="true"]{background:#000}
 .snd{flex:none;background:#000;color:#fff;border:0;font:400 16px/1 var(--display);letter-spacing:.08em;padding:8px 10px 6px;cursor:pointer;transform:skewX(-10deg);white-space:nowrap}
-.snd[aria-pressed="true"]{background:var(--cap);color:#000}
 .count{font:700 15px/1 var(--cond);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;min-width:92px;text-align:right}
 .pfill{position:absolute;left:0;bottom:0;height:4px;width:0;background:#fff;transition:width .6s cubic-bezier(.2,.8,.2,1)}
 
@@ -70,7 +72,7 @@ main{padding-bottom:40px}
 .sticker{display:inline-block;font:700 13px/1 var(--cond);letter-spacing:.12em;text-transform:uppercase;padding:5px 10px 4px;transform:rotate(-2deg);white-space:nowrap}
 .lv4{background:var(--red);color:#fff}
 .lv3{background:#000;color:#fff;border:2px solid #fff}
-.lv2{background:var(--cap);color:#000}
+.lv2,.snd[aria-pressed="true"]{background:var(--cap);color:#000}
 .lv1{border:2px dashed #888;color:#999}
 .panel .lv3{border-color:#000}
 .panel .lv1{color:#555;border-color:#777}
@@ -112,7 +114,8 @@ main{padding-bottom:40px}
 .panel.watched .watch path{stroke-dashoffset:0;transition:stroke-dashoffset .35s ease .05s}
 .stamp{position:absolute;top:-18px;right:70px;z-index:3;pointer-events:none;background:var(--red);color:#fff;border:3px solid #000;font:400 24px/1 var(--display);letter-spacing:.12em;padding:5px 12px 2px;box-shadow:3px 3px 0 #000;opacity:0;transform:rotate(6deg) scale(2.4)}
 .panel.watched .stamp{opacity:1;transform:rotate(6deg);transition:opacity .12s,transform .3s cubic-bezier(.2,1.6,.4,1)}
-.sfx{position:absolute;z-index:5;pointer-events:none;font:400 64px/1 var(--sfx);color:var(--cap);-webkit-text-stroke:3px #000;text-shadow:4px 4px 0 #000;letter-spacing:.04em;white-space:nowrap}
+.sfx,.sfxw{position:absolute;z-index:9;pointer-events:none;font:400 58px/1 var(--sfx);color:var(--cap);-webkit-text-stroke:3px #000;text-shadow:4px 4px 0 #000;white-space:nowrap}
+.sfx{z-index:5;font-size:64px;letter-spacing:.04em}
 .pbody{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.2,.8,.2,1);position:relative}
 .panel.open .pbody{grid-template-rows:1fr}
 .pbody>.in{overflow:hidden;min-height:0;visibility:hidden;transition:visibility 0s .4s}
@@ -120,8 +123,9 @@ main{padding-bottom:40px}
 .pin{padding:4px 22px 26px}
 .lab{display:block;font:400 21px/1 var(--display);letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
 .story .box{background:var(--cap);border:3px solid #000;padding:14px 16px;margin:0;font-weight:500}
-.nextissue{margin-top:18px;background:#000;color:#fff;padding:14px 16px 16px}
-.nextissue p{margin:0;color:#ddd}
+.nextissue,.nx{background:#000;color:#fff;padding:14px 16px 16px}
+.nextissue{margin-top:18px}
+.nextissue p,.nx p{margin:0;color:#ddd}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .chip{background:transparent;color:#fff;border:2px solid var(--red);font:700 14px/1 var(--cond);letter-spacing:.08em;text-transform:uppercase;padding:8px 12px 7px;cursor:pointer;transition:background-color .15s,transform .15s}
 @media (hover:hover){.chip:hover{background:var(--red);transform:translateY(-2px)}}
@@ -141,13 +145,12 @@ main{padding-bottom:40px}
 .ptva,.ptva .pf{clip-path:polygon(0 0,96% 5%,100% 100%,0 100%)}
 .p10005,.p10005 .pf{clip-path:polygon(4% 4%,100% 0,100% 100%,0 100%)}
 .eb{position:absolute!important;top:12px;left:14px;background:#fff;color:#000;border:2px solid #000;font:700 12px/1 var(--cond);letter-spacing:.08em;padding:4px 6px 3px;text-transform:uppercase}
-.pr{position:absolute!important;top:12px;right:16px;font:700 11px/1 var(--cond);letter-spacing:.08em;opacity:.85}
 .pf b{font:400 clamp(36px,9vw,58px)/.9 var(--display);text-transform:uppercase;letter-spacing:.02em;text-shadow:3px 3px 0 rgba(0,0,0,.35)}
 .pf small{font:600 14px/1.2 var(--cond);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
 .splash.picked .pn:not(.sel){filter:brightness(.55) saturate(.7)}
 .pn.sel{z-index:2;transform:scale(1.02)}
 .pn.sel::after{content:"READ ON";position:absolute;right:22px;bottom:14px;z-index:4;background:var(--cap);color:#000;border:2px solid #000;font:400 18px/1 var(--display);letter-spacing:.1em;padding:4px 8px 2px;transform:rotate(-4deg)}
-.burst{position:absolute;left:50%;top:var(--by,52%);width:clamp(132px,34vw,190px);aspect-ratio:1;margin:calc(clamp(132px,34vw,190px)/-2) 0 0 calc(clamp(132px,34vw,190px)/-2);z-index:6;border:0;padding:0;cursor:pointer;background:#000;clip-path:polygon(50% 0,60% 19%,81% 6%,77% 30%,100% 34%,83% 52%,98% 76%,73% 72%,68% 100%,50% 82%,32% 100%,27% 72%,2% 76%,17% 52%,0 34%,23% 30%,19% 6%,40% 19%);animation:throb 2.4s ease-in-out infinite}
+.burst{position:absolute;left:50%;top:var(--by,52%);width:clamp(132px,34vw,190px);aspect-ratio:1;margin:calc(clamp(132px,34vw,190px)/-2) 0 0 calc(clamp(132px,34vw,190px)/-2);z-index:6;border:0;padding:0;cursor:pointer;background:#000;clip-path:var(--star);animation:throb 2.4s ease-in-out infinite}
 .burst i{position:absolute;inset:5px;background:var(--cap);clip-path:inherit;display:grid;place-content:center;text-align:center;color:#000}
 .burst span{font:400 clamp(24px,6.5vw,34px)/.9 var(--display);text-transform:uppercase}
 .burst em{font:400 clamp(13px,3.3vw,17px)/1 var(--sfx);font-style:normal;color:var(--red);margin-top:3px;letter-spacing:.05em}
@@ -169,14 +172,11 @@ main{padding-bottom:40px}
 .bubble{position:relative;background:#fff;border:3px solid #000;border-radius:26px;padding:14px 20px;margin:0 0 18px;max-width:34em;font-weight:500}
 .bubble::before{content:"";position:absolute;bottom:-17px;left:34px;border:9px solid transparent;border-top:17px solid #000;border-bottom:0}
 .bubble::after{content:"";position:absolute;bottom:-10px;left:37px;border:6px solid transparent;border-top:13px solid #fff;border-bottom:0}
-.nx{background:#000;color:#fff;padding:14px 16px 16px}
-.nx p{margin:0;color:#ddd}
 .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
 .tab{background:#111;color:#fff;border:2px solid #000;font:700 14px/1 var(--cond);letter-spacing:.08em;text-transform:uppercase;padding:8px 12px 7px;transform:skewX(-8deg);box-shadow:3px 3px 0 var(--c);cursor:pointer;transition:background-color .15s}
 @media (hover:hover){.tab:hover{background:var(--red)}}
-.pop{animation:pop .35s cubic-bezier(.2,1.3,.4,1)}
+.pop,#sheet[open]{animation:pop .35s cubic-bezier(.2,1.3,.4,1)}
 @keyframes pop{from{opacity:0;transform:translateY(20px) skewX(-3deg)}}
-.sfxw{position:absolute;z-index:9;pointer-events:none;font:400 58px/1 var(--sfx);color:var(--cap);-webkit-text-stroke:3px #000;text-shadow:4px 4px 0 #000;white-space:nowrap}
 .mapnote{margin:40px 0 0;color:#999;font-size:15px}
 
 /* Concepts and extras */
@@ -229,10 +229,9 @@ footer p{margin:0 0 8px;max-width:44em}
 @media (hover:hover){.gh:hover{background:var(--red);transform:skewX(-6deg) translate(-2px,-2px);box-shadow:7px 7px 0 #fff}}
 @media (pointer:coarse){.gh{min-height:44px}}
 
-.fab{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:70;width:clamp(86px,23vw,110px);aspect-ratio:1;border:0;padding:0;background:#000;clip-path:polygon(50% 0,60% 19%,81% 6%,77% 30%,100% 34%,83% 52%,98% 76%,73% 72%,68% 100%,50% 82%,32% 100%,27% 72%,2% 76%,17% 52%,0 34%,23% 30%,19% 6%,40% 19%);animation:throb 2.4s ease-in-out infinite;cursor:pointer}
+.fab{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:70;width:clamp(86px,23vw,110px);aspect-ratio:1;border:0;padding:0;background:#000;clip-path:var(--star);animation:throb 2.4s ease-in-out infinite;cursor:pointer}
 .fab i{position:absolute;inset:4px;background:var(--red);clip-path:inherit;display:grid;place-content:center;color:#fff;font:400 clamp(20px,5.4vw,26px)/.9 var(--display);letter-spacing:.04em;text-transform:uppercase;font-style:normal}
 #sheet{width:min(460px,calc(100% - 24px));max-height:calc(100% - 24px);margin:auto;overflow:auto;padding:0;background:#f7f4ee;color:#111;border:4px solid #000;box-shadow:10px 10px 0 var(--red)}
-#sheet[open]{animation:pop .35s cubic-bezier(.2,1.3,.4,1)}
 #sheet::backdrop{background:rgba(0,0,0,.85)}
 .shtop{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;background:var(--red);color:#fff;padding:14px 16px 10px;border-bottom:4px solid #000}
 #sheet h3{margin:0;font:400 clamp(38px,10vw,52px)/.9 var(--display);text-transform:uppercase;text-shadow:3px 3px 0 #000}
@@ -250,10 +249,10 @@ footer p{margin:0 0 8px;max-width:44em}
 #shmsg{min-height:1.4em;margin:14px 0 0;font:700 15px/1.3 var(--cond);letter-spacing:.06em;text-transform:uppercase;color:#333}
 #eggs{position:fixed;inset:0;z-index:80;pointer-events:none;overflow:hidden}
 .egg{position:absolute;left:0;top:0;will-change:transform}
-.egg svg,.egg img{display:block;width:100%;height:100%;overflow:visible}
+.egg svg{display:block;width:100%;height:100%;overflow:visible}
 .spider{width:56px;height:56px}
 .spider::before{content:"";position:absolute;left:50%;bottom:100%;width:2px;height:150vh;margin-left:-1px;background:rgba(255,255,255,.85)}
-.spider svg,.spider img{animation:sway 2.6s ease-in-out infinite alternate;transform-origin:50% 0}
+.spider svg{animation:sway 2.6s ease-in-out infinite alternate;transform-origin:50% 0}
 @keyframes sway{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
 
 @media (max-width:640px){
@@ -312,7 +311,7 @@ footer p{margin:0 0 8px;max-width:44em}
         <button role="radio" aria-checked="false" tabindex="-1" data-mode="full">Complete</button>
         <button role="radio" aria-checked="false" tabindex="-1" data-mode="map">Mind map</button>
       </div>
-      <button class="snd" id="snd" aria-pressed="true" aria-label="Sound and vibration">SFX ON</button>
+      <button class="snd" id="snd" aria-pressed="false" aria-label="Sound and vibration">SFX OFF</button>
       <span class="count" id="count" aria-live="polite"></span>
     </div>
     <i class="pfill" id="pfill"></i>
@@ -379,7 +378,7 @@ footer p{margin:0 0 8px;max-width:44em}
       <p>Written as of September 28, 2026, from Marvel's announcements and public reports. Cast and story details may change before release.</p>
       <p>Nothing here reveals how Doom causes, exploits or prevents the collision. Marvel has not said.</p>
       <p>An unofficial fan guide, not affiliated with or endorsed by Marvel.</p>
-      <a class="gh" href="https://github.com/saeedjamalhussains" target="_blank" rel="noopener noreferrer" aria-label="View this project on GitHub">
+      <a class="gh" href="https://github.com/saeedjamalhussains/doomsday_guide" target="_blank" rel="noopener noreferrer" aria-label="View this project on GitHub">
         <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
         <span>GitHub</span>
       </a>
@@ -531,8 +530,8 @@ const voLines = ["Earth's mightiest heroes.", "Three universes.", "One collision
 const sfxWords = ["POW!", "BAM!", "ZAP!", "WHAM!", "KRAKOOM!"];
 
 /* ---------- Sound and haptics (default on; toggle controls both) ---------- */
-let sndOn = true, ac = null;
-try { sndOn = localStorage.getItem("doomsday-sfx") !== "0"; } catch (e) {}
+let sndOn = false, ac = null;
+try { sndOn = localStorage.getItem("doomsday-sfx-v2") === "1"; } catch (e) {}
 const sndBtn = document.getElementById("snd");
 const paintSnd = () => { if (!sndBtn) return; sndBtn.setAttribute("aria-pressed", sndOn ? "true" : "false"); sndBtn.textContent = sndOn ? "SFX ON" : "SFX OFF"; };
 function actx() {
@@ -554,16 +553,17 @@ function tone(c, t, type, f0, f1, dur, vol) {
   g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.001, t + dur);
   o.connect(g); g.connect(c.destination); o.start(t); o.stop(t + dur);
 }
-/* Soft dial click: a low, rounded sine blip with a gentle attack. No noise, nothing crisp. */
-function dial(c, t, f, vol) {
+const dial = (c, t, f, vol) => glide(c, t, f, f * .72, .09, vol, .01);
+/* Soft sine glide (scroll dial and view transitions): gentle attack, nothing crisp */
+function glide(c, t, f0, f1, dur, vol, att = dur * .35) {
   const o = c.createOscillator(), g = c.createGain();
   o.type = "sine";
-  o.frequency.setValueAtTime(f, t);
-  o.frequency.exponentialRampToValueAtTime(f * .72, t + .07);
+  o.frequency.setValueAtTime(f0, t);
+  o.frequency.exponentialRampToValueAtTime(f1, t + dur);
   g.gain.setValueAtTime(.0001, t);
-  g.gain.linearRampToValueAtTime(vol, t + .01);
-  g.gain.exponentialRampToValueAtTime(.0001, t + .09);
-  o.connect(g); g.connect(c.destination); o.start(t); o.stop(t + .1);
+  g.gain.linearRampToValueAtTime(vol, t + att);
+  g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  o.connect(g); g.connect(c.destination); o.start(t); o.stop(t + dur + .02);
 }
 function playSfx(w) {
   if (!sndOn) return;
@@ -573,6 +573,7 @@ function playSfx(w) {
   else if (w === "BAM!") { hit(c, t, .3, .8, 1800); tone(c, t, "sine", 120, 40, .3, .6); }
   else if (w === "ZAP!") { tone(c, t, "sawtooth", 1800, 120, .28, .18); tone(c, t, "square", 900, 60, .2, .08); }
   else if (w === "WHAM!") { hit(c, t, .4, .9, 2500); tone(c, t, "triangle", 200, 35, .4, .6); }
+  else if (w === "SWEEP") { glide(c, t, 180, 360, .3, .05); glide(c, t + .3, 360, 200, .3, .035); }
   else if (w === "TICK") { dial(c, t, 360, .03); }
   else { hit(c, t, 1.2, 1, 1500); tone(c, t, "sine", 90, 25, 1.1, .8); tone(c, t + .05, "sawtooth", 300, 40, .6, .12); }
 }
@@ -612,7 +613,7 @@ function buzz(p) {
 if (sndBtn) {
   sndBtn.addEventListener("click", () => {
     sndOn = !sndOn;
-    try { localStorage.setItem("doomsday-sfx", sndOn ? "1" : "0"); } catch (e) {}
+    try { localStorage.setItem("doomsday-sfx-v2", sndOn ? "1" : "0"); } catch (e) {}
     paintSnd();
     if (sndOn) { playSfx("POW!"); buzz(40); }
   });
@@ -681,7 +682,6 @@ const EXTRA = {
   838: { nick: "Home of the Illuminati", seen: "Multiverse of Madness" }
 };
 const ORDER = ["616", "838", "828", "tva", "10005"];
-const SHAPE = { 616: "p616", 838: "p838", 828: "p828", tva: "ptva", 10005: "p10005" };
 let sel = "doom";
 
 /* ---------- Mind map (comic splash page) ---------- */
@@ -700,7 +700,7 @@ function panelInner(u) {
 function renderMap() {
   const panels = ORDER.map(id => {
     const u = byU[id];
-    return `<button class="pn ${SHAPE[id]}" data-u="${id}" style="--c:${u.c};--on:${u.on}" aria-label="${esc(u.name)}, ${esc(u.tag)}">
+    return `<button class="pn p${id}" data-u="${id}" style="--c:${u.c};--on:${u.on}" aria-label="${esc(u.name)}, ${esc(u.tag)}">
       <span class="pf"><span class="eb">${id === "tva" ? "Not an Earth" : esc(u.name)}</span><b>${esc(u.label)}</b><small>${esc(u.sub)}</small></span></button>`;
   }).join("");
   list.innerHTML = `<div class="mapwrap">
@@ -746,25 +746,26 @@ function paintSel() {
     b.setAttribute("aria-pressed", on);
   });
 }
-function sfxMap(btn) {
-  const s = document.getElementById("splash");
-  if (!s) return;
+function popWord(host, cls, x, y, big) {
   const word = pickWord(); buzz(25);
   if (reduce) return;
   const w = document.createElement("span");
-  w.className = "sfxw";
-  w.textContent = word;
-  const r = btn.getBoundingClientRect(), p = s.getBoundingClientRect();
-  w.style.left = Math.max(0, Math.min(r.left - p.left + r.width / 2 - 70, p.width - 190)) + "px";
-  w.style.top = (r.top - p.top + r.height / 2 - 30) + "px";
-  s.appendChild(w);
+  w.className = cls; w.textContent = word;
+  w.style.left = x + "px"; w.style.top = y + "px";
+  host.appendChild(w);
   const rot = Math.random() * 16 - 8;
   w.animate([
     { opacity: 0, transform: `scale(.2) rotate(${rot - 20}deg)` },
-    { opacity: 1, transform: `scale(1.2) rotate(${rot}deg)`, offset: .3 },
-    { opacity: 1, transform: `scale(1) rotate(${rot}deg)`, offset: .7 },
+    { opacity: 1, transform: `scale(${big}) rotate(${rot}deg)`, offset: .3 },
+    { opacity: 1, transform: `scale(1) rotate(${rot}deg)`, offset: .75 },
     { opacity: 0, transform: `scale(1.1) rotate(${rot}deg) translateY(-14px)` }
-  ], { duration: 850 }).onfinish = () => w.remove();
+  ], { duration: 900, easing: "ease-out" }).onfinish = () => w.remove();
+}
+function sfxMap(btn) {
+  const s = document.getElementById("splash");
+  if (!s) return;
+  const r = btn.getBoundingClientRect(), p = s.getBoundingClientRect();
+  popWord(s, "sfxw", Math.max(0, Math.min(r.left - p.left + r.width / 2 - 70, p.width - 190)), r.top - p.top + r.height / 2 - 30, 1.2);
 }
 function selectU(id, btn) {
   if (id === sel) return;
@@ -886,6 +887,7 @@ function setMode(m, after) {
   if (m === mode) { if (after) after(); return; }
   busy = true;
   buzz(20);
+  playSfx("SWEEP");
   const prev = mode;
   wipe(() => {
     mode = m;
@@ -916,23 +918,8 @@ function impact(green) {
   ], { duration: 420, easing: "linear" });
 }
 function sfxAt(btn) {
-  const word = pickWord(); buzz(25);
-  if (reduce) return;
-  const p = btn.closest(".panel");
-  const s = document.createElement("span");
-  s.className = "sfx";
-  s.textContent = word;
-  const r = btn.getBoundingClientRect(), pr = p.getBoundingClientRect();
-  s.style.left = Math.max(0, r.left - pr.left - 150) + "px";
-  s.style.top = (r.top - pr.top - 34) + "px";
-  p.appendChild(s);
-  const rot = (Math.random() * 16 - 8);
-  s.animate([
-    { opacity: 0, transform: `scale(.2) rotate(${rot - 20}deg)` },
-    { opacity: 1, transform: `scale(1.25) rotate(${rot}deg)`, offset: .3 },
-    { opacity: 1, transform: `scale(1) rotate(${rot}deg)`, offset: .75 },
-    { opacity: 0, transform: `scale(1.1) rotate(${rot}deg) translateY(-14px)` }
-  ], { duration: 900, easing: "ease-out" }).onfinish = () => s.remove();
+  const p = btn.closest(".panel"), r = btn.getBoundingClientRect(), pr = p.getBoundingClientRect();
+  popWord(p, "sfx", Math.max(0, r.left - pr.left - 150), r.top - pr.top - 34, 1.25);
 }
 
 /* Events */
