@@ -1032,13 +1032,20 @@ const say = t => { shmsg.textContent = t; };
 const SHARE_URL = "https://bit.ly/4dbt6bb";
 const pageUrl = () => SHARE_URL;
 const shareButtons = document.querySelectorAll("[data-s]");
+/* Same day count as the hero countdown (whole days remaining), so the card and the timer never disagree */
+function leftText() {
+  const ms = target - Date.now();
+  if (ms <= 0) return "";
+  const d = Math.floor(ms / 864e5);
+  return d === 0 ? "less than a day" : d + (d === 1 ? " day" : " days");
+}
 function stats() {
   const short = { avengers: "HEROES", multiverse: "TIME", xmen: "MUTANTS", bridge: "LINK", today: "NEW", setup: "FINAL" };
   const rows = chapters.map(({ id }) => {
     const items = visible.filter(t => t.ch === id);
     return { n: short[id], d: items.filter(t => watched.has(t.id)).length, t: items.length };
   }).filter(r => r.t);
-  return { done: visible.filter(t => watched.has(t.id)).length, total: visible.length, days: Math.max(0, Math.ceil((target - Date.now()) / 864e5)), rows };
+  return { done: visible.filter(t => watched.has(t.id)).length, total: visible.length, left: leftText(), rows };
 }
 function rr(x, X, Y, W, H, R) {
   x.beginPath(); x.moveTo(X + R, Y); x.arcTo(X + W, Y, X + W, Y + H, R); x.arcTo(X + W, Y + H, X, Y + H, R);
@@ -1119,7 +1126,7 @@ async function makeCard(s) {
   x.fillStyle = "#ffdd3c"; x.beginPath(); x.moveTo(296, 1334); x.lineTo(936, 1334); x.lineTo(936, 1352); x.lineTo(288, 1352); x.closePath(); x.fill();
   x.textAlign = "left"; x.fillStyle = "#fff"; x.font = "58px " + D; x.fillText(rank, 360, 1314);
   x.textAlign = "center";
-  const dt = s.days ? s.days + (s.days === 1 ? " DAY TO GO" : " DAYS TO GO") : "OUT NOW";
+  const dt = s.left ? s.left.toUpperCase() + " TO GO" : "OUT NOW";
   x.font = "150px " + D; x.fillStyle = "#ed1d24"; x.fillText(dt, 546, 1596); x.fillStyle = "#fff"; x.fillText(dt, 540, 1590);
   x.font = "700 44px " + C; x.fillText("AVENGERS: DOOMSDAY  /  DEC 18, 2026", 540, 1660);
   x.fillStyle = "#ffdd3c"; x.font = "700 50px " + C; x.fillText("CATCH UP, TRUE BELIEVER.", 540, 1770);
@@ -1130,7 +1137,7 @@ async function makeCard(s) {
 }
 async function openShare() {
   const s = stats();
-  shareMsg = "I've watched " + s.done + "/" + s.total + " on the road to Avengers: Doomsday" + (s.days ? " (" + s.days + " days to go)" : "") + ".";
+  shareMsg = "I've watched " + s.done + "/" + s.total + " on the road to Avengers: Doomsday" + (s.left ? " (" + s.left + " to go)" : "") + ".";
   shtxt.value = shareMsg + " Catch up: " + pageUrl();
   say(""); shimg.hidden = true; cardBlob = null;
   if (!sheet.open) sheet.showModal();
