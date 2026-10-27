@@ -219,7 +219,7 @@ main{padding-bottom:40px}
 .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
 .tab{background:#111;color:#fff;border:2px solid #000;font:700 14px/1 var(--cond);letter-spacing:.08em;text-transform:uppercase;padding:8px 12px 7px;transform:skewX(-8deg);box-shadow:3px 3px 0 var(--c);cursor:pointer;transition:background-color .15s}
 @media (hover:hover){.tab:hover{background:var(--red)}}
-.pop,#sheet[open]{animation:pop .35s cubic-bezier(.2,1.3,.4,1)}
+.pop{animation:pop .35s cubic-bezier(.2,1.3,.4,1)}
 @keyframes pop{from{opacity:0;transform:translateY(20px) skewX(-3deg)}}
 .mapnote{margin:40px 0 0;color:#999;font-size:15px}
 
@@ -249,22 +249,6 @@ footer p{margin:0 0 8px;max-width:44em}
 @media (hover:hover){.gh:hover{background:var(--red);transform:skewX(-6deg) translate(-2px,-2px);box-shadow:7px 7px 0 #fff}}
 @media (pointer:coarse){.gh{min-height:44px}}
 
-#sheet{width:min(460px,calc(100% - 24px));max-height:calc(100% - 24px);margin:auto;overflow:auto;padding:0;background:#f7f4ee;color:#111;border:4px solid #000;box-shadow:10px 10px 0 var(--red)}
-#sheet::backdrop{background:rgba(0,0,0,.85)}
-.shtop{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;background:var(--red);color:#fff;padding:14px 16px 10px;border-bottom:4px solid #000}
-#sheet h3{margin:0;font:400 clamp(38px,10vw,52px)/.9 var(--display);text-transform:uppercase;text-shadow:3px 3px 0 #000}
-.shx{flex:none;background:#000;color:#fff;border:0;font:400 26px/1 var(--display);padding:8px 14px 5px;transform:skewX(-10deg);cursor:pointer}
-.shbody{padding:18px 16px 20px;background:radial-gradient(circle,rgba(0,0,0,.1) 1px,transparent 1.5px) 0 0/8px 8px}
-#shimg{display:block;max-width:100%;max-height:38vh;margin:0 auto 18px;border:3px solid #000;box-shadow:5px 5px 0 #000;transform:rotate(-1.5deg);background:#000}
-#shtxt{display:block;width:100%;resize:none;margin:0 0 18px;background:var(--cap);color:#111;border:3px solid #000;box-shadow:4px 4px 0 #000;padding:12px 14px;font:600 16px/1.35 var(--cond);letter-spacing:.03em;transform:rotate(.6deg)}
-.shg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.so{background:var(--b,#000);color:var(--o,#fff);border:3px solid #000;box-shadow:4px 4px 0 #000;font:400 24px/1 var(--display);letter-spacing:.06em;text-transform:uppercase;padding:12px 8px 9px;transform:skewX(-6deg);transition:transform .15s,box-shadow .15s;cursor:pointer}
-@media (hover:hover){.so:hover{transform:skewX(-6deg) translate(-2px,-2px);box-shadow:7px 7px 0 #000}}
-.so:active{transform:skewX(-6deg) translate(2px,2px);box-shadow:1px 1px 0 #000}
-.so.pri,.so.cp,.so.mo{grid-column:1/-1}
-.so.pri{--b:var(--red);font-size:32px;padding:14px 8px 11px}
-.so.wa{--b:#25d366;--o:#000}.so.x{--b:#fff;--o:#000}.so.fb{--b:#3d8bff}.so.tg{--b:#29a9eb;--o:#000}.so.cp{--b:var(--cap);--o:#000}
-#shmsg{min-height:1.4em;margin:14px 0 0;font:700 15px/1.3 var(--cond);letter-spacing:.06em;text-transform:uppercase;color:#333}
 #toast{position:fixed;left:12px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:120;max-width:calc(100% - 24px);background:#000;color:#fff;border:3px solid var(--cap);box-shadow:4px 4px 0 var(--red);padding:10px 14px;font:700 15px/1.3 var(--cond);letter-spacing:.06em;text-transform:uppercase;opacity:0;pointer-events:none;transition:opacity .25s}
 #toast.on{opacity:1}
 
@@ -519,7 +503,7 @@ html{scroll-padding-top:calc(var(--barh) + 12px);-webkit-tap-highlight-color:tra
 button,select,summary,label,.chk{touch-action:manipulation}
 .next{min-height:48px;display:inline-flex;align-items:center}
 /* keyboard focus must be visible on light cards too */
-.panel :focus-visible,.card :focus-visible,.shbody :focus-visible,.board .card :focus-visible{outline-color:#000}
+.panel :focus-visible,.card :focus-visible,.board .card :focus-visible{outline-color:#000}
 .panel .head:focus-visible{outline-offset:-4px}
 
 @media (max-width:520px){
@@ -600,24 +584,6 @@ button,select,summary,label,.chk{touch-action:manipulation}
 </div>
 
 <div id="toast" role="status" aria-live="polite"></div>
-
-<dialog id="sheet" aria-labelledby="shh">
-  <div class="shtop"><h3 id="shh">Share the hype!</h3><button class="shx" id="shClose" aria-label="Close">X</button></div>
-  <div class="shbody">
-    <img id="shimg" alt="Your Before Doomsday progress card" hidden>
-    <textarea id="shtxt" rows="3" readonly aria-label="Share message"></textarea>
-    <div class="shg">
-      <button class="so pri" data-s="story">Instagram Story</button>
-      <button class="so wa" data-s="wa">WhatsApp</button>
-      <button class="so x" data-s="x">X</button>
-      <button class="so fb" data-s="fb">Facebook</button>
-      <button class="so tg" data-s="tg">Telegram</button>
-      <button class="so cp" data-s="copy">Copy text</button>
-      <button class="so mo" data-s="more" hidden>More apps...</button>
-    </div>
-    <p id="shmsg" aria-live="polite"></p>
-  </div>
-</dialog>
 
 <script>
 const mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -1398,179 +1364,12 @@ document.addEventListener("change", e => {
 applyTz();
 setInterval(tickCd, 1000);
 
-/* ===== SHARING ===== */
-const sheet = document.getElementById("sheet"), shimg = document.getElementById("shimg"), shtxt = document.getElementById("shtxt"), shmsg = document.getElementById("shmsg");
-let cardBlob = null, shareMsg = "";
-const say = t => { shmsg.textContent = t; };
-const CANON_URL = "https://saeedjamalhussains.github.io/doomsday_guide/";
-const pageUrl = () => CANON_URL;
-const shareButtons = document.querySelectorAll("[data-s]");
-/* Same day count as the hero countdown (whole days remaining), so the card and the timer never disagree */
-function leftText() {
-  const ms = target - Date.now();
-  if (ms <= 0) return "";
-  const d = Math.floor(ms / 864e5);
-  return d === 0 ? "less than a day" : d + (d === 1 ? " day" : " days");
-}
-function stats() {
-  const short = { avengers: "HEROES", multiverse: "TIME", xmen: "MUTANTS", bridge: "LINK", today: "NEW", setup: "FINAL" };
-  const rows = chapters.map(({ id }) => {
-    const items = visible.filter(t => t.ch === id);
-    return { n: short[id], d: items.filter(t => watched.has(t.id)).length, t: items.length };
-  }).filter(r => r.t);
-  return { done: visible.filter(t => watched.has(t.id)).length, total: visible.length, left: leftText(), rows };
-}
-function rr(x, X, Y, W, H, R) {
-  x.beginPath(); x.moveTo(X + R, Y); x.arcTo(X + W, Y, X + W, Y + H, R); x.arcTo(X + W, Y + H, X, Y + H, R);
-  x.arcTo(X, Y + H, X, Y, R); x.arcTo(X, Y, X + W, Y, R); x.closePath();
-}
-async function makeCard(s) {
-  try { await Promise.all([document.fonts.load('240px "Bebas Neue"'), document.fonts.load('700 40px "Barlow Condensed"')]); } catch (e) {}
-  const c = document.createElement("canvas"); c.width = 1080; c.height = 1920;
-  const x = c.getContext("2d"), D = '"Bebas Neue",Impact,"Arial Narrow",sans-serif', C = '"Barlow Condensed","Arial Narrow",sans-serif';
-  const cols = ["#ed1d24", "#3d8bff", "#ffd21f", "#ff8a1f", "#a77bff", "#35c46a"];
-  x.textAlign = "center"; x.lineJoin = "round";
-  x.fillStyle = "#08080e"; x.fillRect(0, 0, 1080, 1920);
-  const bg = x.createRadialGradient(540, 800, 50, 540, 800, 900);
-  bg.addColorStop(0, "rgba(120,80,200,.35)"); bg.addColorStop(1, "rgba(0,0,0,0)");
-  x.fillStyle = bg; x.fillRect(0, 0, 1080, 1920);
-  x.fillStyle = "#fff"; x.font = "96px " + D; x.fillText("MY DOOMSDAY CARD", 540, 150);
-  const ch = x.createLinearGradient(120, 220, 960, 1396);
-  [[0, "#f4f6ff"], [.2, "#9aa0b8"], [.4, "#ffffff"], [.6, "#7c8299"], [.8, "#e6e9f5"], [1, "#8a90a8"]].forEach(a => ch.addColorStop(a[0], a[1]));
-  rr(x, 120, 220, 840, 1176, 34); x.fillStyle = ch; x.fill();
-  rr(x, 136, 236, 808, 1144, 22); x.fillStyle = "#000"; x.fill();
-  x.save(); rr(x, 140, 240, 800, 1136, 18); x.clip();
-  const a = x.createLinearGradient(0, 240, 0, 1376);
-  a.addColorStop(0, "#3b1a63"); a.addColorStop(.6, "#5a2a86"); a.addColorStop(1, "#1a0d2e");
-  x.fillStyle = a; x.fillRect(140, 240, 800, 1136);
-  [[300, 1150, 520, "255,138,31", .6], [800, 420, 520, "167,123,255", .55], [540, 260, 420, "237,29,36", .35]].forEach(g => {
-    const r = x.createRadialGradient(g[0], g[1], 0, g[0], g[1], g[2]);
-    r.addColorStop(0, "rgba(" + g[3] + "," + g[4] + ")"); r.addColorStop(1, "rgba(" + g[3] + ",0)");
-    x.fillStyle = r; x.fillRect(140, 240, 800, 1136);
-  });
-  x.fillStyle = "rgba(255,255,255,.07)";
-  for (let i = 0; i < 24; i += 2) {
-    const t = i * Math.PI / 12, u = t + Math.PI / 12;
-    x.beginPath(); x.moveTo(540, 700); x.lineTo(540 + 1200 * Math.cos(t), 700 + 1200 * Math.sin(t)); x.lineTo(540 + 1200 * Math.cos(u), 700 + 1200 * Math.sin(u)); x.closePath(); x.fill();
-  }
-  x.fillStyle = "rgba(0,0,0,.1)";
-  for (let r = 0; r < 64; r++) for (let q = 0; q < 45; q++) { x.beginPath(); x.arc(140 + q * 18 + (r % 2) * 9, 240 + r * 18, 2.6, 0, 7); x.fill(); }
-  x.strokeStyle = "rgba(255,255,255,.09)"; x.lineWidth = 3;
-  for (let k = -1200; k < 800; k += 16) { x.beginPath(); x.moveTo(140 + k, 240); x.lineTo(140 + k + 680, 1376); x.stroke(); }
-  const rb = x.createLinearGradient(140, 240, 940, 1376);
-  [[0, "rgba(255,0,140,.16)"], [.3, "rgba(255,221,60,.12)"], [.6, "rgba(0,255,200,.12)"], [1, "rgba(120,80,255,.18)"]].forEach(k => rb.addColorStop(k[0], k[1]));
-  x.fillStyle = rb; x.fillRect(140, 240, 800, 1136);
-  const n = String(s.done), t = "/" + s.total; x.textAlign = "left";
-  x.font = "470px " + D; const w1 = x.measureText(n).width;
-  x.font = "180px " + D; const w2 = x.measureText(t).width;
-  const sx = 540 - (w1 + w2 + 12) / 2;
-  x.lineWidth = 26; x.strokeStyle = "#000"; x.font = "470px " + D; x.strokeText(n, sx, 830); x.fillStyle = "#fff"; x.fillText(n, sx, 830);
-  x.font = "180px " + D; x.lineWidth = 16; x.strokeText(t, sx + w1 + 12, 830); x.fillStyle = "#ffdd3c"; x.fillText(t, sx + w1 + 12, 830);
-  x.restore();
-  x.textAlign = "center"; x.font = "700 44px " + C;
-  const cw = x.measureText("WATCHED SO FAR").width + 44;
-  x.fillStyle = "#ffdd3c"; x.fillRect(540 - cw / 2, 880, cw, 66); x.strokeStyle = "#000"; x.lineWidth = 6; x.strokeRect(540 - cw / 2, 880, cw, 66);
-  x.fillStyle = "#111"; x.fillText("WATCHED SO FAR", 540, 927);
-  x.fillStyle = "#ed1d24"; rr(x, 160, 260, 230, 62, 6); x.fill();
-  x.fillStyle = "#fff"; x.font = "50px " + D; x.fillText("FAN GUIDE", 275, 308);
-  x.textAlign = "right"; x.font = "62px " + D; x.lineWidth = 8; x.strokeStyle = "#000";
-  x.strokeText("GET READY", 920, 310); x.fillStyle = "#fff"; x.fillText("GET READY", 920, 310);
-  x.font = "700 30px " + C; x.lineWidth = 6; x.strokeText("CATCH UP ASAP", 920, 344); x.fillStyle = "#ffdd3c"; x.fillText("CATCH UP ASAP", 920, 344);
-  const full = s.done === s.total && s.total > 0, P = 16;
-  x.beginPath();
-  for (let i = 0; i < P * 2; i++) { const r = i % 2 ? 66 : 100, q = i * Math.PI / P - Math.PI / 2; x.lineTo(790 + r * Math.cos(q), 480 + r * Math.sin(q)); }
-  x.closePath(); x.fillStyle = "#ffdd3c"; x.fill(); x.lineWidth = 7; x.strokeStyle = "#000"; x.stroke();
-  x.save(); x.translate(790, 498); x.rotate(-.2); x.textAlign = "center"; x.font = (full ? "46px " : "60px ") + D; x.lineWidth = 6;
-  x.strokeText(full ? "READY!" : "POW!", 0, 0); x.fillStyle = "#ed1d24"; x.fillText(full ? "READY!" : "POW!", 0, 0); x.restore();
-  const V = [[160, 1150], [215, 1150], [230, 1225], [245, 1150], [300, 1150], [252, 1292], [208, 1292]];
-  const vp = () => { x.beginPath(); V.forEach((p, i) => i ? x.lineTo(p[0], p[1]) : x.moveTo(p[0], p[1])); x.closePath(); };
-  vp(); x.fillStyle = "#111"; x.fill(); x.lineWidth = 10; x.strokeStyle = "#fff"; x.stroke();
-  x.save(); x.translate(230, 1225); x.scale(.55, .55); x.translate(-230, -1225); vp(); x.fillStyle = "#ffdd3c"; x.fill(); x.restore();
-  s.rows.forEach((r, i) => {
-    const cx = 330 + i * 102;
-    x.fillStyle = "#14141c"; x.fillRect(cx, 1176, 90, 28);
-    x.fillStyle = cols[i % 6]; x.fillRect(cx, 1176, 90 * (r.t ? r.d / r.t : 0), 28);
-    x.strokeStyle = "#000"; x.lineWidth = 3; x.strokeRect(cx, 1176, 90, 28);
-    x.textAlign = "center"; x.fillStyle = "#fff"; x.font = "700 22px " + C; x.fillText(r.n, cx + 45, 1230);
-  });
-  const p = s.total ? s.done / s.total : 0;
-  const rank = p === 0 ? "BYSTANDER" : p < .34 ? "ROOKIE" : p < .67 ? "SIDEKICK" : p < 1 ? "AVENGER" : "DOOMSDAY READY";
-  x.fillStyle = "#000"; x.beginPath(); x.moveTo(330, 1262); x.lineTo(936, 1262); x.lineTo(936, 1326); x.lineTo(296, 1326); x.closePath(); x.fill();
-  x.fillStyle = "#ffdd3c"; x.beginPath(); x.moveTo(296, 1334); x.lineTo(936, 1334); x.lineTo(936, 1352); x.lineTo(288, 1352); x.closePath(); x.fill();
-  x.textAlign = "left"; x.fillStyle = "#fff"; x.font = "58px " + D; x.fillText(rank, 360, 1314);
-  x.textAlign = "center";
-  const dt = s.left ? s.left.toUpperCase() + " TO GO" : "OUT NOW";
-  x.font = "150px " + D; x.fillStyle = "#ed1d24"; x.fillText(dt, 546, 1596); x.fillStyle = "#fff"; x.fillText(dt, 540, 1590);
-  x.font = "700 44px " + C; x.fillText("AVENGERS: DOOMSDAY  /  DEC 18, 2026", 540, 1660);
-  x.fillStyle = "#ffdd3c"; x.font = "700 50px " + C; x.fillText("CATCH UP, TRUE BELIEVER.", 540, 1770);
-  x.fillStyle = "#888"; x.font = "600 30px " + C; x.fillText("An unofficial fan guide", 540, 1850);
-  x.save(); rr(x, 120, 220, 840, 1176, 34); x.clip(); x.fillStyle = "rgba(255,255,255,.08)";
-  x.beginPath(); x.moveTo(120, 900); x.lineTo(640, 220); x.lineTo(820, 220); x.lineTo(120, 1120); x.closePath(); x.fill(); x.restore();
-  return c;
-}
-function openSheet() { if (sheet.open) return; if (typeof sheet.showModal === "function") sheet.showModal(); else sheet.setAttribute("open", ""); }
-function closeSheet() { if (typeof sheet.close === "function") sheet.close(); else sheet.removeAttribute("open"); }
+/* ===== DOWNLOADS (used by the JSON backup) ===== */
 function downloadBlob(blob, name) {
   const u = URL.createObjectURL(blob), a = document.createElement("a");
   a.href = u; a.download = name; document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(u), 4000);
 }
-async function openShare() {
-  const s = stats();
-  shareMsg = "I've watched " + s.done + "/" + s.total + " on the road to Avengers: Doomsday" + (s.left ? " (" + s.left + " to go)" : "") + ".";
-  shtxt.value = shareMsg + " Catch up: " + pageUrl();
-  say(""); shimg.hidden = true; cardBlob = null;
-  openSheet();
-  playSfx("ZAP!");
-  buzz(20);
-  try {
-    const c = await makeCard(s);
-    shimg.src = c.toDataURL("image/png"); shimg.hidden = false;
-    c.toBlob(b => { cardBlob = b; }, "image/png");
-  } catch (e) { say("Couldn't draw the card here, but you can still share the text."); }
-}
-/* Copy with fallbacks: async clipboard, then execCommand on the visible textarea, then manual selection */
-async function copyText(t) {
-  try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(t); return true; } } catch (e) {}
-  try {
-    shtxt.removeAttribute("readonly"); shtxt.focus(); shtxt.select(); shtxt.setSelectionRange(0, t.length);
-    const ok = document.execCommand && document.execCommand("copy");
-    shtxt.setAttribute("readonly", "");
-    if (ok) return true;
-  } catch (e) { shtxt.setAttribute("readonly", ""); }
-  try { shtxt.select(); } catch (e) {}
-  return false;
-}
-async function doShare(k) {
-  const w = pickWord(), t = shtxt.value, u = pageUrl(), q = encodeURIComponent;
-  if (k === "story") {
-    if (!cardBlob) return say("Still drawing the card, try again in a second.");
-    let f = null;
-    try { f = new File([cardBlob], "before-doomsday.png", { type: "image/png" }); } catch (e) {}
-    if (f && navigator.canShare && navigator.canShare({ files: [f] })) {
-      try { await navigator.share({ files: [f], text: t }); }
-      catch (e) { if (e && e.name !== "AbortError") { downloadBlob(cardBlob, "before-doomsday.png"); say("Sharing failed, so the card was saved instead."); } }
-    } else {
-      downloadBlob(cardBlob, "before-doomsday.png");
-      say("Card saved. Add it to your Story from your gallery.");
-    }
-  } else if (k === "copy") {
-    say((await copyText(t)) ? w + " Copied!" : "Copy is blocked here. The text is selected, copy it manually.");
-  } else if (k === "more") {
-    try { await navigator.share({ text: shareMsg, url: u }); }
-    catch (e) { if (e && e.name !== "AbortError") say((await copyText(t)) ? "Sharing failed, so the text was copied." : "Sharing failed. Copy the text manually."); }
-  } else {
-    const L = { wa: "https://wa.me/?text=" + q(t), x: "https://twitter.com/intent/tweet?text=" + q(t), fb: "https://www.facebook.com/sharer/sharer.php?u=" + q(u), tg: "https://t.me/share/url?url=" + q(u) + "&text=" + q(shareMsg) };
-    window.open(L[k], "_blank", "noopener"); say(w + " Opening...");
-  }
-}
-const shClose = document.getElementById("shClose");
-if (shClose) shClose.onclick = closeSheet;
-if (sheet) sheet.addEventListener("click", e => {
-  if (e.target === sheet) return closeSheet();
-  const b = e.target.closest("[data-s]"); if (b) doShare(b.dataset.s);
-});
-if (shareButtons.length) shareButtons.forEach(btn => { if (!navigator.share && btn.dataset.s === "more") btn.hidden = true; else if (navigator.share && btn.dataset.s === "more") btn.hidden = false; });
 
 
 /* =====================================================================
@@ -2027,8 +1826,7 @@ function renderProgress() {
   const wn = watching.length ? `<div class="card"><h3>Watching now (${watching.length})</h3><ul class="plist">${watching.map(miniRow).join("")}</ul></div>` : "";
   list.innerHTML = `<div class="hub">${headHtml("Progress", "Your progress", "How far through the guide you are.")}
     <div class="card"><h3>Continue watching</h3>
-      ${cont ? `<p>${statusOf(cont) === "watching" ? "You are watching:" : "Next on your route:"} <b>${esc(byId[cont].name)}</b></p><button class="next" data-hopen="${cont}" data-fk="cont">Open ${esc(byId[cont].name)}</button>` : "<p>You have finished this route. On to Doomsday.</p>"}
-      <p><button class="textbtn" data-act="share" data-fk="share">Share my progress</button></p></div>
+      ${cont ? `<p>${statusOf(cont) === "watching" ? "You are watching:" : "Next on your route:"} <b>${esc(byId[cont].name)}</b></p><button class="next" data-hopen="${cont}" data-fk="cont">Open ${esc(byId[cont].name)}</button>` : "<p>You have finished this route. On to Doomsday.</p>"}</div>
     <div class="card"><h3>Doomsday readiness</h3>
       <p class="bigpct">${st.pct}%</p>
       ${st.done === 0 ? '<p class="muted">Nothing watched yet. Mark a title watched on the Route tab and this fills up.</p>' : ""}
@@ -2120,9 +1918,6 @@ function renderSettings() {
       <div class="row">${chk("sound", "Sound effects", settings.sound)}${chk("haptics", "Vibration", settings.haptics)}${chk("anim", "Animations", settings.anim)}</div>
       <p class="muted">Animations also switch off by themselves when your device asks for reduced motion.</p>
       <div class="row">${chk("spoilsafe", "Spoiler-free mode (hide story notes until a title is watched)", settings.spoil === "safe")}</div></div>
-    <div class="card"><h3>Share</h3>
-      <p>Make a card with your progress to share with friends.</p>
-      <button class="next" data-act="share" data-fk="share2">Share my progress</button></div>
     <div class="card frm"><h3>Backup</h3>
       <p>${storageOK ? "Progress, ratings, notes and settings are saved in this browser only." : "This browser is blocking saved data, so use Export to keep a copy."}</p>
       <div class="row"><button class="btn" data-act="export" data-fk="exp">Export JSON</button><input class="inp" type="file" accept="application/json,.json" data-file aria-label="Import a backup file"></div>
@@ -2268,7 +2063,6 @@ list.addEventListener("click", e => {
   else if (d.act === "filter") { showFilter = !showFilter; render(); }
   else if (d.act === "clearf") { Object.assign(F, FDEF); render(); }
   else if (d.act === "openall") { const all = [...list.querySelectorAll(".panel")], open = !all.every(x => x.classList.contains("open")); all.forEach(x => setOpen(x, open)); el.textContent = open ? "Close all" : "Open all"; }
-  else if (d.act === "share") openShare();
   else if (d.act === "toroute") setMode("route");
   else if (d.act === "export") doExport();
   else if (d.act === "importbox") { const bk = document.getElementById("bk"); if (bk && bk.value.trim()) importJson(bk.value); else toast("Paste a backup into the box first."); }
@@ -2321,7 +2115,7 @@ list.addEventListener("input", e => {
 let eggBuf = "";
 addEventListener("keydown", e => {
   const tg = e.target, typing = tg && (tg.tagName === "INPUT" || tg.tagName === "TEXTAREA" || tg.tagName === "SELECT" || tg.isContentEditable);
-  if (typing || e.ctrlKey || e.metaKey || e.altKey || (sheet && sheet.open)) return;
+  if (typing || e.ctrlKey || e.metaKey || e.altKey) return;
   if (e.key === "/") {
     e.preventDefault();
     const go = () => { const gs = document.getElementById("gs"); if (gs) gs.focus(); };
